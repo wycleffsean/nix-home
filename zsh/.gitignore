@@ -1,0 +1,14 @@
+!.zpreztorc
+!after/*
+!include/*
+
+# symlinks to zprezto
+.zshrc
+.zlogin
+.zlogout
+.zprofile
+.zshenv
+
+# caches
+.zsh_history
+.zcompdump

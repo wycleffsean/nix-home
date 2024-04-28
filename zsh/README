@@ -1,0 +1,17 @@
+# Setup
+
+We need a primordial zsh script: ~/.zshenv.  Set this up by running `source install`
+
+## Load Order
+
+- zsh
+	- ~/.zshenv (ln -s ~/.config/zsh/zshenv)
+        	- ~/.config/zsh/.zshenv
+                	- ~/.config/zsh/.zprofile
+        	- ~/.config/zsh/.zshrc
+                	- ~/.config/zsh/.zprezto/init.zsh
+                        	- ~/.config/zsh/.zpreztorc
+		- ~/.config/homerun/initialize
+			- ~/.config/zsh/include/* # and all other modules
+	
+

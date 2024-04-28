@@ -1,0 +1,13 @@
+export XDG_CONFIG_HOME="${XDG_CONFIG_HOME:=$HOME/.config}"
+export ZDOTDIR="${ZDOTDIR:=$XDG_CONFIG_HOME/zsh}"
+
+# install zsh and some dependencies
+# brew install zsh ffind
+
+# Install zprezto
+setopt EXTENDED_GLOB
+for rcfile in "${ZDOTDIR:-$HOME}"/.zprezto/runcoms/^(zpreztorc|README.md)(.N); do
+  ln -s "$rcfile" "${ZDOTDIR:-$HOME}/.${rcfile:t}"
+done
+
+ln -s "$XDG_CONFIG_HOME/zsh/zshenv" "$HOME/.zshenv"

@@ -1,0 +1,44 @@
+[user]
+	name = Sean Carey
+	email = seanpcarey@protonmail.com
+	signingKey = 779787E772A20366721609512AB4271E1454E6BD
+[sendmail]
+	smtpserver = 127.0.0.1
+	smtpuser = seanpcarey@protonmail.com
+	smtpencryption = ssl
+	smtpserverport = 1025
+[diff]
+	tool = difftastic
+[difftool]
+	prompt= false
+[difftool "difftastic"]
+	cmd = difft "$LOCAL" "$REMOTE"
+[merge]
+	tool = bc3
+[mergetool]
+	bcomp = trustExitCode
+[pager]
+	difftool = true
+[core]
+	excludesfile = /home/sean/.config/git/ignore_global
+	editor = kak
+[push]
+	default = simple
+[alias]
+	ignored = ls-files -o -i --exclude-standard
+	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+	dlog = "!f() { GIT_EXTERNAL_DIFF=difft git log -p --ext-diff $@; }; f"
+	filelog = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --numstat -u -- 
+	assume = update-index --assume-unchanged
+	unassume = update-index --no-assume-unchanged
+	assumed = "!git ls-files -v | grep ^h | cut -c 3-"
+	unassumeall = "!git assumed | xargs git update-index --no-assume-unchanged"
+[rerere]
+	enabled = true
+[commit]
+	# gpgsign = true
+[tag]
+	# gpgsign = true
+
+[rebase]
+	autosquash = true
