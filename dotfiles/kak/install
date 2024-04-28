@@ -1,0 +1,3 @@
+source "$SCRIPTDIR/share/dependencies.sh"
+
+depends_on 'fzf'

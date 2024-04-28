@@ -1,0 +1,21 @@
+# Basis
+https://wiki.archlinux.org/title/XDG_Base_Directory
+https://github.com/sorin-ionescu/prezto
+https://github.com/romeovs/homerun
+
+# Setup
+
+See `zsh/README`
+
+## On an existing system
+
+https://stackoverflow.com/a/16811212
+
+```
+cd ~/.config
+git remote add -t \* -f origin git@git.sr.ht:~scarey/config
+git add ...
+git commit -m "System X ~/.config"
+git checkout trunk
+git merge --allow-unrelated-histories master
+```
