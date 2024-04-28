@@ -57,7 +57,19 @@
   # Nicely reload system units when changing configs
   systemd.user.startServices = "sd-switch";
 
-  wayland.windowManager.river.enable = true;
+  # wayland.windowManager.river.enable = true;
+  wayland.windowManager.sway = {
+      enable = true;
+      config = rec {
+          modifier = "Mod4"; # Super key
+          output = {
+              "Virtual-1" = {
+                  mode = "2560x11440@75Hz";
+              };
+          };
+      };
+  };
+
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
   home.stateVersion = "23.11";

@@ -50,9 +50,13 @@
   # Enable CUPS to print documents.
   # services.printing.enable = true;
 
+  # wayland-related
+  security.polkit.enable = true;
+  hardware.opengl.enable = true; # when using QEMU KVM
+
   # Enable sound.
-  # sound.enable = true;
-  # hardware.pulseaudio.enable = true;
+  sound.enable = true;
+  hardware.pulseaudio.enable = true;
 
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
