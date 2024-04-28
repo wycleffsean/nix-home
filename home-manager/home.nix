@@ -13,7 +13,7 @@
     # inputs.nix-colors.homeManagerModule
 
     # You can also split up your configuration and import pieces of it here:
-    # ./nvim.nix
+    ./kakoune.nix
   ];
 
   nixpkgs = {
@@ -37,6 +37,8 @@
       allowUnfreePredicate = _: true;
     };
   };
+
+  xdg.enable = true;
 
   # TODO: Set your username
   home = {
