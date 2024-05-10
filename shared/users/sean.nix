@@ -6,6 +6,7 @@
   users.users.sean = {
     isNormalUser = true;
     extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
+    shell = pkgs.zsh;
     packages = with pkgs; [
     ];
     openssh.authorizedKeys.keys = [

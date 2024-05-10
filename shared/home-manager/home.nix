@@ -54,7 +54,26 @@
 
   # Enable home-manager and git
   programs.home-manager.enable = true;
+  programs.fzf = {
+      enable = true;
+      enableZshIntegration = true;
+  };
   programs.git.enable = true;
+  programs.mcfly = {
+      enable = true;
+      enableZshIntegration = true;
+      # fzf.enable = true; # TODO: this errors; best guess is a pkgs version issue
+  };
+  programs.nnn.enable = true;
+  programs.ripgrep.enable = true;
+  programs.starship = {
+      enable = true;
+      enableZshIntegration = true;
+  };
+  programs.zsh = {
+      enable = true;
+      prezto.enable = true;
+  };
 
   # Nicely reload system units when changing configs
   systemd.user.startServices = "sd-switch";

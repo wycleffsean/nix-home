@@ -1,5 +1,3 @@
-colorscheme snazzy
-
 # Use ripgrep instead of grep
 set-option global grepcmd 'rg -Hn --no-heading'
 
@@ -150,26 +148,6 @@ define-command -docstring 'Get weather from wttr.in' weather %{
             hook -always -once buffer BufCloseFifo .* %{ nop %sh{ rm -r $(dirname ${output})} }
         }"
     }
-}
-
-# in lieu of autoload
-# https://github.com/andreyorst/plug.kak/issues/83#issuecomment-864600718
-evaluate-commands %sh{
-    config_files="
-        rspec.kak
-        ide.kak
-        keybinds.kak
-    "
-
-    for file in $config_files; do
-        printf "%s" "
-            try %{
-                source %{${kak_config:?}/$file}
-            } catch %{
-                echo -debug %val{error}
-            }
-        "
-    done
 }
 
 # TODO: add commands for upping/downing/redoing migration if it's current buffer

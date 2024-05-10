@@ -20,13 +20,11 @@
           kak-powerline
       ];
       extraConfig = ''
-        # Use ripgrep instead of grep
-        set-option global grepcmd 'rg -Hn --no-heading'
-
         # in lieu of autoload
         # https://github.com/andreyorst/plug.kak/issues/83#issuecomment-864600718
         evaluate-commands %sh{
             config_files="
+                init.kak
                 rspec.kak
                 ide.kak
                 keybinds.kak
@@ -47,6 +45,7 @@
 
   xdg.configFile = {
 
+    "kak/init.kak".source = ../dotfiles/kak/init.kak;
     "kak/colors/snazzy.kak".source = ../dotfiles/kak/colors/snazzy.kak;
     "kak/rspec.kak".source = ../dotfiles/kak/rspec.kak;
     "kak/ide.kak".source = ../dotfiles/kak/ide.kak;
