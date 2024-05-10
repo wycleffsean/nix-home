@@ -1,0 +1,8 @@
+#! /bin/env sh
+
+hostname=$1
+
+echo "running nixos-rebuild for $hostname"
+
+scp targets/rpi4/configuration.nix root@nixos:/etc/nixos/.
+ssh root@$hostname 'nixos-rebuild switch'

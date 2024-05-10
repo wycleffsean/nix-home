@@ -44,6 +44,8 @@
   home = {
     username = "sean";
     homeDirectory = "/home/sean";
+    # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
+    stateVersion = "23.11";
   };
 
   # Add stuff for your user as you see fit:
@@ -57,8 +59,6 @@
   # Nicely reload system units when changing configs
   systemd.user.startServices = "sd-switch";
 
-  wayland.windowManager.river.enable = true;
+  # wayland.windowManager.river.enable = true;
 
-  # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
-  home.stateVersion = "23.11";
 }
