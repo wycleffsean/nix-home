@@ -45,6 +45,9 @@
     username = "sean";
     homeDirectory = "/home/sean";
     # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
+    sessionVariables = {
+        VISUAL = "kak";
+    };
     stateVersion = "23.11";
   };
 

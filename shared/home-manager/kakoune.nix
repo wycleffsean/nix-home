@@ -1,5 +1,3 @@
-# This is your home-manager configuration file
-# Use this to configure your home environment (it replaces ~/.config/nixpkgs/home.nix)
 {
   inputs,
   lib,
@@ -7,7 +5,6 @@
   pkgs,
   ...
 }: {
-  # Enable home-manager and git
   programs.kakoune = {
       enable = true;
       defaultEditor = true;
@@ -16,8 +13,8 @@
       };
       plugins = with pkgs.kakounePlugins; [
           kak-lsp
-          kak-fzf
-          kak-powerline
+          fzf-kak
+          powerline-kak
       ];
       extraConfig = ''
         # in lieu of autoload
