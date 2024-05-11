@@ -11,7 +11,9 @@
       # Import home-manager's NixOS module
       inputs.home-manager.nixosModules.home-manager
 
+      ../../shared/std.nix
       ../../shared/users/sean.nix
+      ../../shared/media/server.nix
     ];
 
   # Use the extlinux boot loader. (NixOS wants to enable GRUB by default)
@@ -46,6 +48,10 @@
       device = "sean-Arch:/home/sean/code/sr.ht/nix-home";
       fsType = "nfs";
       options = [ "nfsvers=4.2" "x-systemd.automount" "noauto" "x-systemd.idle-timeout=10" ];
+  };
+
+  fileSystems."/mnt/blue_hdd" = {
+      device = "/dev/disk/by-uuid/f7e84711-affd-4ce9-b76f-f650c9d30033";
   };
   
 

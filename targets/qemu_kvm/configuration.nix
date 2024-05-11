@@ -11,6 +11,7 @@
       # Import home-manager's NixOS module
       inputs.home-manager.nixosModules.home-manager
 
+      ../../shared/std.nix
       ../../shared/users/sean.nix
     ];
 
