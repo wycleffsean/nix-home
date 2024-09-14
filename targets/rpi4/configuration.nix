@@ -54,7 +54,7 @@
   # Enable the X11 windowing system.
   # services.xserver.enable = true;
 
-  filesystems = {
+  fileSystems = {
       "/mnt/sean-Arch/nixos-home" = {
           device = "sean-Arch:/home/sean/code/sr.ht/nix-home";
           fsType = "nfs";
