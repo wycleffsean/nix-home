@@ -7,6 +7,7 @@
 {
   imports =
     [
+      ./hardware-configuration.nix
       # Import home-manager's NixOS module
       inputs.home-manager.nixosModules.home-manager
 
@@ -18,7 +19,7 @@
   # Use the extlinux boot loader. (NixOS wants to enable GRUB by default)
   boot = {
       kernelPackages = pkgs.linuxKernel.packages.linux_rpi4;
-      initrd.availableKernelModules = [ "xhci_pci" "usbhid" "usb_storage" ];
+      # initrd.availableKernelModules = [ "xhci_pci" "usbhid" "usb_storage" ];
       loader = {
           grub.enable = false;
           # Enables the generation of /boot/extlinux/extlinux.conf
@@ -54,12 +55,6 @@
   # services.xserver.enable = true;
 
   filesystems = {
-      "/" = {
-          device = "/dev/disk/by-label/NIXOS_SD";
-          fsType = "ext4";
-          options = [ "noatime" ];
-      };
-
       "/mnt/sean-Arch/nixos-home" = {
           device = "sean-Arch:/home/sean/code/sr.ht/nix-home";
           fsType = "nfs";
