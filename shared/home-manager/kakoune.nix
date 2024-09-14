@@ -12,7 +12,7 @@
         colorScheme = "snazzy";
       };
       plugins = with pkgs.kakounePlugins; [
-          kak-lsp
+          kakoune-lsp
           fzf-kak
           powerline-kak
       ];
