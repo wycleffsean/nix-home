@@ -20,8 +20,11 @@
   in {
     # NixOS configuration entrypoint
     # Available through 'nixos-rebuild --flake .#your-hostname'
+    #
+    # Give specific host names - generic hostnames like "nixos"
+    # plus 'nixos-rebuild --flake .' can lead to mistakes
     nixosConfigurations = {
-      nixos = nixpkgs.lib.nixosSystem {
+      "nixos-vm" = nixpkgs.lib.nixosSystem {
         specialArgs = {inherit inputs outputs;};
         # > Our main nixos configuration file <
         modules = [./targets/qemu_kvm/configuration.nix];
