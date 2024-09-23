@@ -5,7 +5,7 @@
 
   users.users.sean = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "media" ]; # Enable ‘sudo’ for the user.
+    extraGroups = [ "networkmanager" "wheel" "media" ]; # Enable ‘sudo’ for the user.
     shell = pkgs.zsh;
     packages = with pkgs; [
     ];
