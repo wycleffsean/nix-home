@@ -48,7 +48,7 @@
     sessionVariables = {
         VISUAL = "kak";
     };
-    stateVersion = "23.11";
+    stateVersion = "24.05";
   };
 
   # Add stuff for your user as you see fit:
@@ -61,7 +61,12 @@
       enable = true;
       enableZshIntegration = true;
   };
-  programs.git.enable = true;
+  programs.git = {
+      enable = true;
+      # TODO: this stuff should not live in a shared home
+      userEmail = "wycleffsean@gmail.com";
+      userName = "Sean Carey";
+  };
   programs.mcfly = {
       enable = true;
       enableZshIntegration = true;

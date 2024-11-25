@@ -24,6 +24,12 @@
     # Give specific host names - generic hostnames like "nixos"
     # plus 'nixos-rebuild --flake .' can lead to mistakes
     nixosConfigurations = {
+      "nixos" = nixpkgs.lib.nixosSystem {
+        specialArgs = {inherit inputs outputs;};
+        # > Our main nixos configuration file <
+        modules = [./targets/desktop_amd64/configuration.nix];
+      };
+
       "nixos-vm" = nixpkgs.lib.nixosSystem {
         specialArgs = {inherit inputs outputs;};
         # > Our main nixos configuration file <
