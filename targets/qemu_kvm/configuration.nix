@@ -15,7 +15,6 @@
       ../../shared/users/sean.nix
     ];
 
-
   # Bootloader
   ## EFI / GPT
   ### Single OS (for VMs with EFI support)
@@ -34,13 +33,9 @@
   # boot.loader.grub.device = "/dev/vda"; # or "nodev" for efi only
   # boot.loader.grub.useOSProber = true;
 
-
-
   # This is so we can cross compile generated images for other targets.  Raspberry Pi 4 is ARMv8,
   # but armv7l is the best option available.
   # boot.binfmt.emulatedSystems = [ "armv7l-linux" ];
-
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   networking.hostName = "nixos-vm"; # Define your hostname.
   # Pick only one of the below networking options.
