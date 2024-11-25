@@ -32,26 +32,26 @@
   };
   programs.zsh.enable = true;
 
-  #home-manager.users.sean = { pkgs, ...}: {
-  #    home.packages = [];
-  #    programs.zsh.enable = true;
+  home-manager.users.sean = { pkgs, ...}: {
+     home.packages = [];
+     programs.zsh.enable = true;
 
-  #    programs.ssh = {
-  #        enable = true;
-  #        extraConfig = ''
-  #        Host *
-  #        	IdentityAgent ~/.1password/agent.sock
-  #        '';
-  #    };
+     programs.ssh = {
+         enable = true;
+         extraConfig = ''
+         Host *
+         	IdentityAgent ~/.1password/agent.sock
+         '';
+     };
 
-  #    programs.git = {
-  #        enable = true;
-          # TODO: gpg signing with 1Password. See nixos 1password wiki
-  #    };
+     programs.git = {
+         enable = true;
+         # TODO: gpg signing with 1Password. See nixos 1password wiki
+     };
 
-  #    # The state version is required and should stay at the version you originally installed
-  #    home.stateVersion = "24.05";
-  #};
+     # The state version is required and should stay at the version you originally installed
+     home.stateVersion = "24.05";
+  };
 
   #### END COPY
 
