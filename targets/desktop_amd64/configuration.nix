@@ -53,6 +53,11 @@
      home.stateVersion = "24.05";
   };
 
+  fileSystems."/run/media/sean/home" =
+    { device = "/dev/disk/by-uuid/dc64c413-9903-4d41-9495-89814665bb14";
+      fsType = "ext4";
+    };
+
   #### END COPY
 
   # Bootloader.
