@@ -78,6 +78,10 @@
       enable = true;
       enableZshIntegration = true;
   };
+  programs.zellij = {
+      enable = true;
+      enableZshIntegration = true;
+  };
   programs.zsh = {
       enable = true;
       prezto.enable = true;
