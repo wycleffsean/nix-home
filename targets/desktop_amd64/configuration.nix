@@ -23,6 +23,54 @@
 
   #### This is the stuff we will copy into git
 
+  services.netatalk = {
+      enable = true;
+      settings = {
+          Homes = {
+              "basedir regex" = "/home";
+          };
+          crypt.path = "/run/media/sean/home/sean/crypt/stuff";
+      };
+  };
+  services.avahi = {
+      enable = true;
+      nssmdns4 = true;
+      publish = {
+          enable = true;
+          userServices = true;
+      };
+      extraServiceFiles = {
+          afp = ''
+            <?xml version="1.0" standalone="no"?>
+            <!DOCTYPE service-group SYSTEM "avahi-service.dtd">
+
+            <service-group>
+                <name replace-wildcards="yes">%h</name>
+
+                <service>
+                    <type>_device-info._tcp</type>
+                    <port>0</port>
+                    <txt-record>model=Xserve</txt-record>
+                </service>
+            </service-group>
+          '';
+          afpd = ''
+            <?xml version="1.0" standalone="no"?>
+            <!DOCTYPE service-group SYSTEM "avahi-service.dtd">
+
+            <service-group>
+                <name replace-wildcards="yes">%h</name>
+
+                <service>
+                    <type>_device-info._tcp</type>
+                    <port>0</port>
+                    <txt-record>model=Xserve</txt-record>
+                </service>
+            </service-group>
+          '';
+      };
+  };
+
   programs._1password.enable = true;
   programs._1password-gui = {
       enable = true;
