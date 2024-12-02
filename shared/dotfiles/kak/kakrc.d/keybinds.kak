@@ -4,7 +4,7 @@
 map global normal '#' :comment-line<ret>
 map global user c %{:edit ~/.config/kak/kakrc<ret>} -docstring 'Edit kakrc'
 map global user d %{:edit *debug*<ret>} -docstring 'View *debug* buffer'
-map global user o %{:nnn-current<ret>} -docstring "Open nnn"
+map global user o %{:file-browser<ret>} -docstring "Open nnn"
 map global user y '<a-|>xsel -i -b<ret>' -docstring "yank selection to clipboard"
 
 map global user l %{:enter-user-mode lsp<ret>} -docstring "LSP mode"
@@ -27,7 +27,7 @@ map global user '/' ': require-module fzf-grep; fzf-grep<ret>' -docstring 'Grep 
 map global user '<space>' '<esc>: require-module fzf-file; fzf-file<ret>' -docstring "Find Files (root dir)"
 # E -> Explorer (cwd)
 # e -> Explorer (root dir)
-map global user 'e' '<esc>:nnn-current<ret>' -docstring "Explorer nnn (root dir)"
+map global user 'e' '<esc>:file-browser<ret>' -docstring "Open file browser (root dir)"
 # K -> Keywordprg
 # l -> Lazy
 # L -> LazyVim Changelog
@@ -96,6 +96,31 @@ map global search -docstring "Grep (root dir)" 'g' '<esc>:grep '
 # n -> +noice
 
 ## t -> test
+try %{ declare-user-mode test }
+define-command -docstring "Enter test-mode..
+test-mode contains keybinds for testing
+" \
+test-mode %{ evaluate-commands 'enter-user-mode test' }
+map global user 't' ':test-mode<ret>' -docstring 'test'
+
+# d -> Debug Nearest
+# l -> Run Last
+# o -> Show Output
+# O -> Toggle Output Panel
+# r -> Run Nearest
+map global test -docstring "Run Nearest" 'r' '<esc>:test-run-nearest<ret>'
+# S -> Stop
+# s -> Toggle Summary
+# T -> Run All Test Files
+map global test -docstring "Run All Test Files" 'T' '<esc>:test-run-all<ret>'
+# t -> Run File
+map global test -docstring "Run File" 't' '<esc>:test-run-file<ret>'
+
+
 ## u -> ui
 ## w -> windows
 ## x -> diagnostics/quickfix
+
+# Non-Lazy Vim binds
+map global user m %{:enter-user-mode man<ret>} -docstring "manpage mode"
+map global user p %{:enter-user-mode clipboard<ret>} -docstring "clipboard"

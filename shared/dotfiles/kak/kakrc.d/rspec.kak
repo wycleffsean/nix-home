@@ -1,14 +1,53 @@
+## RSpec testing
+# provides aliases for:
+# - test-run-nearest
+# - test-run-file
+# - test-run-all
+
 # define-command rspec-example %{
 	# edit ~/code/github.com/chrisseaton/rhizome/stdout
     	# set-option buffer filetype rspec-progress
 # }
-map global user t %{:rspec-example<ret>} -docstring "Open rspec report"
+# map global user t %{:rspec-example<ret>} -docstring "Open rspec report"
 
+hook global WinSetOption path=*_spec.rb %{
+    require-module rspec
 
-#################################################################
+    # set-option window static_words %opt{ruby_static_words}
+
+    # hook window ModeChange pop:insert:.* -group ruby-trim-indent ruby-trim-indent
+    # hook window InsertChar .* -group ruby-indent ruby-indent-on-char
+    # hook window InsertChar \n -group ruby-indent ruby-indent-on-new-line
+    # hook window InsertChar \n -group ruby-insert ruby-insert-on-new-line
+
+    alias window test-run-nearest rspec-run-nearest
+    alias window test-run-file rspec-run-file
+    alias window test-run-all rspec-run-all
+
+    hook -once -always window WinSetOption path=.* %{
+        # remove-hooks window rspec-.+
+        unalias window rspec-run-nearest test-run-nearest
+        unalias window rspec-run-file test-run-file
+        unalias window rspec-run-all test-run-all
+    }
+}
+
+provide-module rspec %§
+
+require-module fifo
+
 declare-option -docstring "shell command run rspec" \
     str rspeccmd 'rspec'
 declare-option -hidden int rspec_current_line 0
+
+define-command rspec-run-nearest %{
+    fifo -name *rspec-progress* %{
+        trap - INT QUIT
+        $kak_opt_rspeccmd
+    }
+    # set-option buffer filetype weather
+    set-option buffer jump_current_line 0
+}
 
 define-command -params .. -docstring %{
     rspec [<arguments>]: rspec utility wrapper
@@ -131,3 +170,5 @@ hook global BufCreate .+\.example %{
     # so set the `filetype` option!
     set-option buffer filetype example
 }
+
+§
