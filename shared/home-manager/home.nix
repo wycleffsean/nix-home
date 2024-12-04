@@ -39,6 +39,27 @@
   };
 
   xdg.enable = true;
+  xdg.mimeApps = {
+    enable = true;
+
+    # super useful mime debugging technique
+    # XDG_UTILS_DEBUG_LEVEL=2 xdg-mime query filetype foo.pdf
+    # XDG_UTILS_DEBUG_LEVEL=2 xdg-mime query default application/pdf
+    # fd evince.desktop /
+    # see https://discourse.nixos.org/t/set-default-application-for-mime-type-with-home-manager/17190
+    associations.added = {
+        "video/mp4" = [
+            "io.github.celluloid_player.Celluloid.desktop"
+            "org.gnome.Totem.desktop"
+        ];
+    };
+    defaultApplications = {
+        "video/mp4" = [
+            "io.github.celluloid_player.Celluloid.desktop"
+            "org.gnome.Totem.desktop"
+        ];
+    };
+  };
 
   # TODO: Set your username
   home = {
