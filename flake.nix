@@ -5,6 +5,10 @@
     # Nixpkgs
     nixpkgs.url = "github:nixos/nixpkgs/nixos-24.05";
 
+    # Nix Darwin
+    nix-darwin.url = "github:LnL7/nix-darwin";
+    nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
+
     # Home manager
     home-manager.url = "github:nix-community/home-manager/release-24.05";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
@@ -16,6 +20,7 @@
   outputs = {
     self,
     nixpkgs,
+    nix-darwin,
     home-manager,
     ghostty,
     ...
@@ -50,6 +55,16 @@
         # > Our main nixos configuration file <
         modules = [./targets/rpi4/configuration.nix];
       };
+    };
+
+    # Build darwin flake using:
+    # $ darwin-rebuild build --flake .#MacBook-Pro
+    # or nix run nix-darwin -- switch --flake ~/.config/nix-darwin
+
+    # 13" 2020 M1 machine
+    darwinConfigurations."MacBook-Pro" = nix-darwin.lib.darwinSystem {
+      specialArgs = {inherit self inputs outputs;};
+      modules = [ ./targets/macbook_pro/configuration.nix ];
     };
 
     # Standalone home-manager configuration entrypoint
