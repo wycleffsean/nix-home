@@ -88,6 +88,17 @@
       userEmail = "wycleffsean@gmail.com";
       userName = "Sean Carey";
   };
+  programs.ledger = {
+      enable = true;
+      settings = {
+          date-format = "%Y-%m-%d";
+          file = [
+              "~/code/accounting/personal/main.journal"
+          ];
+          sort = "date";
+          # strict = true; # TODO!!!
+      };
+  };
   programs.mcfly = {
       enable = true;
       enableZshIntegration = true;
