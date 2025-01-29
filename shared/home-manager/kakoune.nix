@@ -13,7 +13,7 @@
       };
       plugins = with pkgs.kakounePlugins; [
           kakoune-lsp
-          fzf-kak
+          # fzf-kak
       ];
       extraConfig = ''
         # in lieu of autoload
