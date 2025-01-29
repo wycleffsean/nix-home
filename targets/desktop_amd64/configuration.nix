@@ -72,6 +72,11 @@
       };
   };
 
+  services.ollama = {
+      enable = true;
+      acceleration = "cuda";
+  };
+
   programs._1password.enable = true;
   programs._1password-gui = {
       enable = true;
