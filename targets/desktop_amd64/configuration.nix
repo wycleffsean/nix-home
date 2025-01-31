@@ -20,6 +20,7 @@
       ../../shared/std.nix
       ../../shared/users/sean.nix
       ../../shared/networking/mullvad.nix
+      ../../shared/media/spotify.nix
     ];
 
   #### This is the stuff we will copy into git
