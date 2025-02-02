@@ -115,6 +115,13 @@
       enable = true;
       enableZshIntegration = true;
   };
+  programs.zoxide = {
+      enable = true;
+      options = [
+          "--cmd"
+          "j"
+      ];
+  };
   programs.zsh = {
       enable = true;
       prezto.enable = true;
