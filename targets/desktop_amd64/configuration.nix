@@ -204,12 +204,18 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
+   bottles
    celluloid
    discord
    encfs
-   kakoune # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+   gdb
+   godot_4
+   libreoffice
+   pkg-config
+   ruby
    ventoy-full
    xclip
+   zig
   #  wget
   ];
   # ] ++ [ ghostty ];
