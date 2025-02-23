@@ -207,6 +207,7 @@
    bottles
    celluloid
    discord
+   doctl
    encfs
    gdb
    godot_4
@@ -219,6 +220,10 @@
   #  wget
   ];
   # ] ++ [ ghostty ];
+
+  # Enable docker
+  # we've also added 'sean' to the 'docker' group
+  virtualisation.docker.enable = true;
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
