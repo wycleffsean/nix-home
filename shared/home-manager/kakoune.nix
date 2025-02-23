@@ -41,5 +41,6 @@
         recursive = true;
         source = ../dotfiles/kak/kakrc.d;
     };
+    "kak-lsp/kak-lsp.toml".source = ../dotfiles/kak-lsp/kak-lsp.toml;
   };
 }

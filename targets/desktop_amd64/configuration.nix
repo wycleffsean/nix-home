@@ -212,6 +212,8 @@
    gdb
    godot_4
    libreoffice
+   nil # nix lsp
+   nixfmt-rfc-style
    pkg-config
    ruby
    ventoy-full
