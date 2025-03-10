@@ -209,6 +209,7 @@
    discord
    doctl
    encfs
+   entr
    gdb
    godot_4
    libreoffice
