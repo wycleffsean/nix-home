@@ -258,6 +258,12 @@ filetypes = ["nix"]
 roots = ["flake.nix", "shell.nix", ".git", ".hg"]
 command = "nil"
 
+[language.nostos]
+filetypes = ["nostos"]
+roots = [".git", ".hg"]
+command = "/home/sean/code/sr.ht/scarey/nostos/bin/nostos"
+args = ["lsp"]
+
 [language.ocaml]
 filetypes = ["ocaml"]
 roots = ["Makefile", "opam", "*.opam", "dune"]
