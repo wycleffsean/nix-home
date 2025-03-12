@@ -220,6 +220,7 @@
    ventoy-full
    xclip
    zig
+   zls
   #  wget
   ];
   # ] ++ [ ghostty ];
