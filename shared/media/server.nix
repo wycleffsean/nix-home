@@ -1,5 +1,8 @@
 { inputs, outputs, config, lib, pkgs, ... }:
 
+let
+  nixpkgs-24_11 = import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/nixos-24.11.tar.gz") { system = pkgs.system; };
+in
 {
   imports = [];
 
@@ -7,11 +10,23 @@
   networking.firewall.allowedTCPPorts = [ 80 443 ];
 
   # Enable Glances with Web UI
-  services.glances = {
-    enable = true;
-    webUI = {
-      enable = true;
-      port = 61208;
+  # 24.11 only
+  # services.glances = {
+  #   enable = true;
+  #   webUI = {
+  #     enable = true;
+  #     port = 61208;
+  #   };
+  # };
+
+  # Pull in Glances from NixOS 24.11
+  systemd.services.glances = {
+    description = "Glances system monitoring";
+    after = [ "network.target" ];
+    wantedBy = [ "multi-user.target" ];
+    serviceConfig = {
+      ExecStart = "${nixpkgs-24_11.glances}/bin/glances -w";
+      Restart = "always";
     };
   };
 
