@@ -88,6 +88,18 @@
       # TODO: this stuff should not live in a shared home
       userEmail = "wycleffsean@gmail.com";
       userName = "Sean Carey";
+
+      aliases = {
+	chekcout = "checkout";
+	ignored = "ls-files -o -i --exclude-standard";
+	lg = "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit";
+	filelog = "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --numstat -u -- ";
+	assume = "update-index --assume-unchanged";
+	unassume = "update-index --no-assume-unchanged";
+	assumed = "!git ls-files -v | grep ^h | cut -c 3-";
+	unassumeall = "!git assumed | xargs git update-index --no-assume-unchanged";
+      };
+
   };
   programs.ledger = {
       enable = true;
