@@ -78,6 +78,30 @@
       acceleration = "cuda";
   };
 
+  services.postgresql = {
+      enable = true;
+      ensureDatabases = [ "sean" ];
+
+      authentication = pkgs.lib.mkOverride 10 ''
+        #...
+        #type database DBuser origin-address auth-method
+        local all       all     trust
+        # ipv4
+        host  all      all     127.0.0.1/32   trust
+        # ipv6
+        host all       all     ::1/128        trust
+      '';
+
+      identMap = ''
+        # ArbitraryMapName systemUser DBUser
+           superuser_map      root      postgres
+           superuser_map      postgres  postgres
+           superuser_map      sean  postgres
+           # Let other names login as themselves
+           superuser_map      /^(.*)$   \1
+      '';
+  };
+
   programs._1password.enable = true;
   programs._1password-gui = {
       enable = true;
