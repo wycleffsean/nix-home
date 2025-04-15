@@ -89,6 +89,8 @@
       userEmail = "wycleffsean@gmail.com";
       userName = "Sean Carey";
 
+      difftastic.enable = true;
+
       aliases = {
 	chekcout = "checkout";
 	ignored = "ls-files -o -i --exclude-standard";
@@ -98,6 +100,16 @@
 	unassume = "update-index --no-assume-unchanged";
 	assumed = "!git ls-files -v | grep ^h | cut -c 3-";
 	unassumeall = "!git assumed | xargs git update-index --no-assume-unchanged";
+      };
+
+      extraConfig = {
+          pull.rebase = true;
+          rerere.enabled = true;
+      };
+
+      signing = {
+          key = "779787E772A20366721609512AB4271E1454E6BD";
+          # signByDefault = true;
       };
 
   };
