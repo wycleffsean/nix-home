@@ -229,12 +229,14 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
    bottles
+   btop
    celluloid
    discord
    doctl
    encfs
    entr
    gdb
+   glances
    godot_4
    libreoffice
    nil # nix lsp

@@ -113,6 +113,9 @@
       };
 
   };
+  programs.htop = {
+      enable = true;
+  };
   programs.ledger = {
       enable = true;
       settings = {
