@@ -242,6 +242,7 @@
    nil # nix lsp
    nixfmt-rfc-style
    pkg-config
+   postgres-lsp
    ruby
    ventoy-full
    xclip

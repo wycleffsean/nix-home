@@ -278,6 +278,11 @@ settings_section = "intelephense"
 [language.php.settings]
 intelephense.storagePath = "/tmp/intelephense"
 
+[language.postgres]
+filetypes = ["sql"]
+command = "postgres_lsp"
+roots = ["postgrestools.jsonc"]
+
 [language.python]
 filetypes = ["python"]
 roots = ["requirements.txt", "setup.py", ".git", ".hg"]
