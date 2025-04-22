@@ -230,11 +230,13 @@
   environment.systemPackages = with pkgs; [
    bottles
    btop
+   cargo
    celluloid
    discord
    doctl
    encfs
    entr
+   gcc
    gdb
    glances
    godot_4
@@ -244,6 +246,9 @@
    pkg-config
    postgres-lsp
    ruby
+   rustc
+   rustfmt
+   rust-analyzer
    ventoy-full
    xclip
    zig

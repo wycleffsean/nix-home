@@ -344,17 +344,18 @@ settings_section = "_"
 [language.rust]
 filetypes = ["rust"]
 roots = ["Cargo.toml"]
-command = "sh"
-args = [
-    "-c",
-    """
-        if path=$(rustup which rust-analyzer 2>/dev/null); then
-            "$path"
-        else
-            rust-analyzer
-        fi
-    """,
-]
+command = "rust-analyzer"
+# command = "sh"
+# args = [
+#     "-c",
+#     """
+#         if path=$(rustup which rust-analyzer 2>/dev/null); then
+#             "$path"
+#         else
+#             rust_analyzer
+#         fi
+#     """,
+# ]
 settings_section = "rust-analyzer"
 [language.rust.settings.rust-analyzer]
 # See https://rust-analyzer.github.io/manual.html#configuration
