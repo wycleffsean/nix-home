@@ -249,6 +249,7 @@
    rustc
    rustfmt
    rust-analyzer
+   typescript-language-server
    ventoy-full
    xclip
    zig

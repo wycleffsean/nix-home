@@ -385,6 +385,11 @@ args = ["--stdio"]
 # [language.typescript.settings.deno]
 # enable = true
 # lint = true
+[language.typescript]
+filetypes = ["typescript"]
+roots = ["package.json", "tsconfig.json", ".git", ".hg"]
+command = "typescript-language-server"
+args = ["--stdio"]
 
 [language.yaml]
 filetypes = ["yaml"]
