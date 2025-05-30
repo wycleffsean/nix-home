@@ -16,3 +16,5 @@ plug "andreyorst/fzf.kak" config %{
 } demand fzf-grep %{
     set-option global fzf_grep_command 'rg'
 }
+
+plug "eraserhd/kak-ansi"

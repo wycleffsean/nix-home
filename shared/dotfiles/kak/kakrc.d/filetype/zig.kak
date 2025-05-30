@@ -21,3 +21,49 @@ hook global BufSetOption filetype=zig %{
     #hook -group zig-auto-lint buffer BufWritePre .* lint-buffer
     hook -group zig-auto-lint buffer BufWritePre .* lsp-formatting-sync
 }
+
+declare-option str zig_test_watch_pid ''
+
+define-command zig-start-watch %{
+  evaluate-commands %sh{
+    if [ -n "$kak_opt_zig_test_watch_pid" ] && kill -0 "$kak_opt_zig_test_watch_pid" 2>/dev/null; then
+      exit 0
+    fi
+
+    # subshell and disown process.  We tag it for easy pgrep later
+    # this way the process doesn't hangup when the shell exits
+    printf %s\\n "fifo -name '*zig-build-test*' -scroll -script 'setsid env KAKOUNE_ZIG_WATCH=1 zig build test --watch --color on'"
+
+    sleep 0.1
+
+    pid=$(pgrep -f "KAKOUNE_ZIG_WATCH=1 zig build test --watch --color on" | head -n 1)
+
+    if [ -n "$pid" ]; then
+      printf %s\\n "
+        set-option global zig_test_watch_pid '$pid'
+        echo -debug 'RUNNING($pid): zig build test --watch'
+      "
+    fi
+  }
+  evaluate-commands %{
+      # setting to grep allows us to jump to file refs in the buffer
+      set-option buffer filetype grep
+      ansi-enable # ansi highlight for current buffer
+  }
+}
+
+define-command zig-stop-watch %{
+  evaluate-commands %sh{
+    if [ -n "$kak_opt_zig_test_watch_pid" ] && kill -0 "$kak_opt_zig_test_watch_pid" 2>/dev/null; then
+      kill "$kak_opt_zig_test_watch_pid"
+    fi
+  }
+}
+
+hook global BufWritePost filetype=zig %{
+  zig-start-watch
+}
+
+hook global KakEnd .* %{
+  zig-stop-watch
+}
