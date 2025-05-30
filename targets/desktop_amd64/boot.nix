@@ -1,6 +1,9 @@
 { ... }:
 
 {
+  boot.kernelParams = [
+      # "acpi_sleep=nonvs" # avoid S3 sleep state - hopefully this resolves graphical glitches coming out of sleep
+  ];
   boot.loader = {
       efi = {
           canTouchEfiVariables = true;

@@ -102,6 +102,11 @@
       '';
   };
 
+  services.hardware.openrgb = {
+      enable = true;
+      # package = pkgs.openrgb-with-all-plugins;
+  };
+
   programs._1password.enable = true;
   programs._1password-gui = {
       enable = true;
@@ -109,6 +114,7 @@
       # require enabling PolKit integration on some desktop environments (e.g. Plasma).
       polkitPolicyOwners = [ "sean" ];
   };
+  programs.coolercontrol.enable = true;
   programs.zsh.enable = true;
 
   home-manager.users.sean = { pkgs, ...}: {
@@ -205,6 +211,18 @@
     #media-session.enable = true;
   };
 
+  hardware.graphics.enable = true;
+  hardware.opengl.enable = true;
+  hardware.opengl.driSupport32Bit = true;
+  services.xserver.videoDrivers = ["nvidia"];
+  hardware.nvidia = {
+      modesetting.enable = true;
+      nvidiaSettings = true;
+      open = true;
+      powerManagement.enable = true;
+      package = config.boot.kernelPackages.nvidiaPackages.latest;
+  };
+
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
 
@@ -232,24 +250,43 @@
    btop
    cargo
    celluloid
+   # coolercontrol.coolercontrol-gui
+   # coolercontrol.coolercontrold
+   # coolercontrol.coolercontrol-liqctld
+   # coolercontrol.coolercontrol-ui-data
+   deno # typescript language server
    discord
    doctl
+   editorconfig-core-c
    encfs
    entr
+   gamemode # for lutris
+   gamescope # for lutris
    gcc
    gdb
    glances
+   gnumake
+   go
+   gopls # golang LSP
    godot_4
+   httpie-desktop
    libreoffice
+   lsof
+   lutris # game preservation platform
+   mangohud # for lutris
    nil # nix lsp
    nixfmt-rfc-style
    pkg-config
    postgres-lsp
+   protonplus # needed for battle.net on lutris
    ruby
    rustc
    rustfmt
    rust-analyzer
+   tmux
+   typescript
    typescript-language-server
+   ungoogled-chromium
    ventoy-full
    xclip
    zig
