@@ -152,11 +152,11 @@ args = ["--stdio"]
 # # See https://github.dev/eclipse/eclipse.jdt.ls
 # # "java.format.insertSpaces" = true
 
-[language.jsx] # works for javascript as well
-filetypes = ["javascript"]
-roots = ["package.json", "tsconfig.json", ".git", ".hg"]
-command = "typescript-language-server"
-args = ["--stdio"]
+# [language.jsx] # works for javascript as well
+# filetypes = ["javascript"]
+# roots = ["package.json", "tsconfig.json", ".git", ".hg"]
+# command = "typescript-language-server"
+# args = ["--stdio"]
 
 [language.json]
 filetypes = ["json"]
@@ -371,11 +371,11 @@ args = ["serve"]
 # See https://github.com/hashicorp/terraform-ls/blob/main/docs/SETTINGS.md
 # rootModulePaths = []
 
-[language.tsx] # works for typescript as well
-filetypes = ["typescript"]
-roots = ["package.json", "tsconfig.json", ".git", ".hg"]
-command = "typescript-language-server"
-args = ["--stdio"]
+# [language.tsx] # works for typescript as well
+# filetypes = ["typescript"]
+# roots = ["package.json", "tsconfig.json", ".git", ".hg"]
+# command = "typescript-language-server"
+# args = ["--stdio"]
 
 # [language.typescript]
 # filetypes = ["typescript"]
@@ -385,7 +385,7 @@ args = ["--stdio"]
 # [language.typescript.settings.deno]
 # enable = true
 # lint = true
-[language.typescript]
+[typescript]
 filetypes = ["typescript"]
 roots = ["package.json", "tsconfig.json", ".git", ".hg"]
 command = "typescript-language-server"
