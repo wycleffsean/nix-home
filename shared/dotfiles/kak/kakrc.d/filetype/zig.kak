@@ -25,7 +25,7 @@ hook global BufSetOption filetype=zig %{
 declare-option str zig_test_watch_pid ''
 
 define-command zig-start-watch %{
-  evaluate-commands %sh{
+  evaluate-commands -client %opt{toolsclient} %sh{
     if [ -n "$kak_opt_zig_test_watch_pid" ] && kill -0 "$kak_opt_zig_test_watch_pid" 2>/dev/null; then
       exit 0
     fi
@@ -45,7 +45,7 @@ define-command zig-start-watch %{
       "
     fi
   }
-  evaluate-commands %{
+  evaluate-commands -client %opt{toolsclient} %{
       # setting to grep allows us to jump to file refs in the buffer
       set-option buffer filetype grep
       ansi-enable # ansi highlight for current buffer
