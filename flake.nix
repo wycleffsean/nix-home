@@ -15,6 +15,9 @@
 
     # Ghostty
     ghostty.url = "git+ssh://git@github.com/ghostty-org/ghostty";
+
+    # Zak
+    zak.url = "github:wycleffsean/zak/v0.1.1";
   };
 
   outputs = {
