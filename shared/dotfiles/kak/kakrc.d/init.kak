@@ -34,6 +34,11 @@ hook global ModeChange .*:insert:.* %{ try %{
     unset-face window PrimaryCursorEol
 } }
 
+define-command reload-config %{
+    source %sh{kak -p $kak_session -eval 'echo %val{config}'}
+    echo "Configuration reloaded!"
+}
+
 # Silly stuff
 
 define-command -docstring 'Get weather from wttr.in' weather %{

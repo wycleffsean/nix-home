@@ -1,6 +1,43 @@
 # Keybindings borrowed heavily from LazyVim
 
-# User Mappings
+# Completions
+
+## Define an option to track whether a completion menu is active
+declare-option -hidden bool completion_active false
+
+## Hooks to track when completions are active
+hook global InsertCompletionShow .* %{
+    set-option global completion_active true
+}
+hook global InsertCompletionHide .* %{
+    set-option global completion_active false
+}
+
+define-command -hidden smart-tab %{
+    evaluate-commands %{
+        # 1. If a completion menu is open, cycle through it
+        try %{ evaluate-commands %sh{kak -p $kak_session -eval 'echo %opt{completion_active}'} | grep -q 'true' && echo "<c-n>" } catch %{
+            # 2. If kak-lsp can complete, do that
+            try %{ lsp-complete } catch %{
+                # 3. If a snippet can expand, expand it
+                try %{ snippets-expand } catch %{
+                    # 4. Otherwise, insert a normal tab
+                    insert-text "	"  # This is a literal tab character
+                }
+            }
+        }
+    }
+}
+
+## This is meant to resolve the completions conflict with Zellij
+## now tab, shift-tab will be aliases for c-p, c-n.  "smart-tab" will
+## only insert a tab character if there are no completions available
+map global insert <tab> ': smart-tab<ret>'
+map global insert <s-tab> <c-p>
+map global insert <c-[> <c-p>
+map global insert <c-]> <c-n>
+
+        # User Mappings
 map global normal '#' :comment-line<ret>
 map global user c %{:edit ~/.config/kak/kakrc<ret>} -docstring 'Edit kakrc'
 map global user d %{:edit *debug*<ret>} -docstring 'View *debug* buffer'

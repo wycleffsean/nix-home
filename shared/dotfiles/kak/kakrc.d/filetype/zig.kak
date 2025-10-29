@@ -23,6 +23,8 @@ hook global BufSetOption filetype=zig %{
 }
 
 declare-option str zig_test_watch_pid ''
+# declare-option str zig_testcmd 'zig build test --watch' # 0.14.0+ only
+declare-option str zig_testcmd 'ls **/*.zig | entr -c zig build test --color on'
 
 define-command zig-start-watch %{
   evaluate-commands -client %opt{toolsclient} %sh{
@@ -32,16 +34,16 @@ define-command zig-start-watch %{
 
     # subshell and disown process.  We tag it for easy pgrep later
     # this way the process doesn't hangup when the shell exits
-    printf %s\\n "fifo -name '*zig-build-test*' -scroll -script 'setsid env KAKOUNE_ZIG_WATCH=1 zig build test --watch --color on'"
+    printf %s\\n "fifo -name '*zig-build-test*' -scroll -script 'setsid env KAKOUNE_ZIG_WATCH=1 $kak_opt_zig_testcmd'"
 
     sleep 0.1
 
-    pid=$(pgrep -f "KAKOUNE_ZIG_WATCH=1 zig build test --watch --color on" | head -n 1)
+    pid=$(pgrep -f "KAKOUNE_ZIG_WATCH=1 $kak_opt_zig_testcmd" | head -n 1)
 
     if [ -n "$pid" ]; then
       printf %s\\n "
         set-option global zig_test_watch_pid '$pid'
-        echo -debug 'RUNNING($pid): zig build test --watch'
+        echo -debug 'RUNNING($pid): $kak_opt_zig_test_cmd'
       "
     fi
   }

@@ -4,6 +4,18 @@ eval %sh{kak-lsp --kakoune -s $kak_session}
 # set global lsp_cmd "kak-lsp -s %val{session} -vvv --log /tmp/kak-lsp.log"
 lsp-enable # is this needed?
 
+# Define a function to show hover info
+define-command lsp-auto-hover %{
+    evaluate-commands %{
+        try %{ lsp-hover }
+    }
+}
+
+# Hook to show hover info when stopping in normal mode
+hook global NormalIdle .* %{
+    lsp-auto-hover
+}
+
 # enable for all languages that we want to use the LSP, here we're enabling C++ and Zig.
 hook global WinSetOption filetype=(c|cpp|zig|ruby|python) %{
     lsp-enable-window
