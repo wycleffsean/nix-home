@@ -73,6 +73,24 @@
       };
   };
 
+  services.samba = {
+      enable = true;
+      settings = {
+          "crypt" = {
+              path = "/run/media/sean/home/sean/crypt/stuff";
+              # browseable = "yes";
+              # writable = "no";
+              # "guest ok" = "no";
+              # "read only" = "yes";
+          };
+      };
+  };
+
+  services.samba-wsdd = {
+    enable = true;
+    openFirewall = true;
+  };
+
   services.ollama = {
       enable = true;
       acceleration = "cuda";
@@ -246,10 +264,13 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
+   bear # compile-commands.json for clangd lsp
+   blender
    bottles
    btop
    cargo
    celluloid
+   clang-tools # we really only want clangd, the lsp
    # coolercontrol.coolercontrol-gui
    # coolercontrol.coolercontrold
    # coolercontrol.coolercontrol-liqctld
@@ -267,13 +288,16 @@
    glances
    gnumake
    go
-   gopls # golang LSP
    godot_4
+   gopls # golang LSP
    httpie-desktop
    libreoffice
    lsof
    lutris # game preservation platform
+   man-pages
+   man-pages-posix
    mangohud # for lutris
+   mosh
    nil # nix lsp
    nixfmt-rfc-style
    pkg-config
@@ -283,6 +307,7 @@
    rustc
    rustfmt
    rust-analyzer
+   socat
    tmux
    typescript
    typescript-language-server
@@ -310,16 +335,46 @@
   # List services that you want to enable:
 
   # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
+  services.openssh = {
+    enable = true;
+    # ports = [ 5432 ];
+    settings = {
+      PasswordAuthentication = false;
+      KbdInteractiveAuthentication = false;
+      PermitRootLogin = "no";
+      AllowUsers = [ "sean" ];
+    };
+  };
+  services.fail2ban = {
+    enable = true;
+    maxretry = 5;
+    bantime = "1h";
+    bantime-increment = {
+      enable = true;
+      # formula = "ban.Time * math.exp(float(ban.Count+1)*banFactor)/math.exp(1*banFactor)";
+      multipliers = "1 2 4 8 16 32 64";
+      maxtime = "168h";
+      overalljails = true;
+    };
+  };
 
   # Open ports in the firewall.
   networking.firewall.allowedTCPPorts = [
+      #Samba
+      139 # NetBIOS
+      445 # SMB
+
       548 # netatalk
+      1234 # openra
   ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
+  networking.firewall.allowedUDPPorts = [
+  ] ++
+    pkgs.lib.lists.range 60000 61000; # mosh
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
 
+  # https://nixos.wiki/wiki/Samba#Firewall_configuration
+  networking.firewall.extraCommands = ''iptables -t raw -A OUTPUT -p udp -m udp --dport 137 -j CT --helper netbios-ns'';
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
   # on your system were taken. It‘s perfectly fine and recommended to leave

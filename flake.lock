@@ -206,17 +206,17 @@
         "utils": "utils"
       },
       "locked": {
-        "lastModified": 1750307224,
-        "narHash": "sha256-lhPg4Y2IFfgZYoMs71ZxouAI7zSYJQVenijvehQMCy8=",
+        "lastModified": 1750310201,
+        "narHash": "sha256-vXmQUlMzD9pdJFqtk94NxyYF74D6vcXKasvs6UWXF/w=",
         "owner": "wycleffsean",
         "repo": "zak",
-        "rev": "342869b6f31e92c7016daa9bc8c785c72b4b95ae",
+        "rev": "76331342f1700d1c86c2dd50fab3ab00f8d06fb6",
         "type": "github"
       },
       "original": {
         "owner": "wycleffsean",
-        "ref": "v0.1.2",
         "repo": "zak",
+        "rev": "76331342f1700d1c86c2dd50fab3ab00f8d06fb6",
         "type": "github"
       }
     },
