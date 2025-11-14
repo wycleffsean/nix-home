@@ -23,6 +23,13 @@
       ../../shared/media/spotify.nix
     ];
 
+
+
+  # Avoid getty racing / interfering with GDM on the first VT
+  # i.e. blank screen with cursor after login (with GDM + Wayland)
+  systemd.services."getty@tty1".enable = false;
+  systemd.services."autovt@tty1".enable = false;
+
   #### This is the stuff we will copy into git
 
   services.netatalk = {
