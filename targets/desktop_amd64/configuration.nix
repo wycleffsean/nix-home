@@ -214,7 +214,7 @@
   services.printing.enable = true;
 
   # Enable sound with pipewire.
-  hardware.pulseaudio.enable = false;
+  services.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
@@ -258,7 +258,13 @@
 
   # Allow unfree packages
   # TODO: set unfree predicates instead i.e. explicitly list unfree software
-  nixpkgs.config.allowUnfree = true;
+  nixpkgs.config = {
+    allowUnfree = true;
+    permittedInsecurePackages = [
+      "ventoy-1.1.05"
+      "mbedtls-2.28.10"
+    ];
+  };
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
@@ -310,7 +316,7 @@
    tmux
    typescript
    typescript-language-server
-   ungoogled-chromium
+   # ungoogled-chromium
    ventoy-full
    xclip
    zig
