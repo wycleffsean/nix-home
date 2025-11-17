@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, inputs, ghostty, ... }:
+{ config, pkgs, inputs, ... }:
 
 {
   #imports =
@@ -297,6 +297,7 @@
    gamescope # for lutris
    gcc
    gdb
+   ghostty
    glances
    gnumake
    go
@@ -330,7 +331,6 @@
    zls
   #  wget
   ];
-  # ] ++ [ ghostty ];
 
   # Enable docker
   # we've also added 'sean' to the 'docker' group

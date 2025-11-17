@@ -13,9 +13,6 @@
     home-manager.url = "github:nix-community/home-manager/release-25.05";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
-    # Ghostty
-    ghostty.url = "git+ssh://git@github.com/ghostty-org/ghostty";
-
     # Zak
     zak.url = "github:wycleffsean/zak/76331342f1700d1c86c2dd50fab3ab00f8d06fb6";
   };
@@ -25,7 +22,6 @@
     nixpkgs,
     nix-darwin,
     home-manager,
-    ghostty,
     ...
   } @ inputs: let
     inherit (self) outputs;
@@ -41,9 +37,6 @@
         # > Our main nixos configuration file <
         modules = [
             ./targets/desktop_amd64/configuration.nix
-            {
-                environment.systemPackages = [ ghostty.packages.x86_64-linux.default ];
-            }
         ];
       };
 
