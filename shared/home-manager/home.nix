@@ -82,6 +82,10 @@
   # Enable home-manager and git
   programs.home-manager.enable = true;
   programs.bat.enable = true;
+  programs.direnv = {
+    enable = true;
+    nix-direnv.enable = true;
+  };
   programs.fzf = {
       enable = true;
       enableZshIntegration = true;
@@ -155,6 +159,9 @@
   programs.zsh = {
       enable = true;
       prezto.enable = true;
+      initExtra = ''
+        eval "$(direnv hook zsh)"
+      '';
   };
 
   # Nicely reload system units when changing configs
