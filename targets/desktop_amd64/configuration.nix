@@ -14,6 +14,7 @@
     [
       ./hardware-configuration.nix
       ./boot.nix
+      ./zfs.nix
       # Import home-manager's NixOS module
       inputs.home-manager.nixosModules.home-manager
 
