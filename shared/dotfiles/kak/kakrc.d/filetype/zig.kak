@@ -2,7 +2,7 @@
 hook global WinSetOption filetype=zig %{
     set-option buffer formatcmd 'zig fmt --stdin'
     set-option window lsp_auto_highlight_references true
-    set-option global lsp_server_configuration zls.zig_lib_path="/usr/lib/zig"
+    # set-option global lsp_server_configuration zls.zig_lib_path="/usr/lib/zig"
     set-option -add global lsp_server_configuration zls.warn_style=true
     set-option -add global lsp_server_configuration zls.enable_semantic_tokens=true
 
