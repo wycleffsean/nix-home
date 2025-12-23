@@ -41,4 +41,27 @@ in
           sean = import ../home-manager/home.nix;
       };
   };
+
+  systemd.user.services.encfs-cleanup = {
+    description = "Unmount all encfs FUSE filesystems on logout";
+    wantedBy = [ "default.target" ];
+
+    serviceConfig = {
+      Type = "oneshot";
+      # We just need it to "exist" during the session so ExecStop runs on logout
+      ExecStart = "${pkgs.coreutils}/bin/true";
+
+      # On stop (logout), unmount every fuse.encfs mount for this user
+      ExecStop = ''
+        ${pkgs.bash}/bin/bash -lc '
+          # Find all encfs mounts (type fuse.encfs) owned by this user and unmount them
+          ${pkgs.util-linux}/bin/findmnt -t fuse.encfs -n -o TARGET --raw \
+            | while read -r m; do
+                echo "encfs-cleanup: unmounting $m"
+                ${pkgs.fuse}/bin/fusermount -u "$m" || true
+              done
+        '
+      '';
+    };
+  };
 }
