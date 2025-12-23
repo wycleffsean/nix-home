@@ -332,6 +332,7 @@
    typescript-language-server
    # ungoogled-chromium
    ventoy-full
+   vscode-langservers-extracted
    xclip
    zig
    zls
