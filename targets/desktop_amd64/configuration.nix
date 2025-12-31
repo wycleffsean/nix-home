@@ -323,14 +323,17 @@
    postgres-lsp
    protonplus # needed for battle.net on lutris
    ruby
+   ruff # Extremely fast Python linter and code formatter
    rustc
    rustfmt
    rust-analyzer
    socat
    tmux
+   ty # python typechecker and LSP
    typescript
    typescript-language-server
    # ungoogled-chromium
+   uv # Extremely fast Python package installer and resolver, written in Rust
    ventoy-full
    vscode-langservers-extracted
    xclip
