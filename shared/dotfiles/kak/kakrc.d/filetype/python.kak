@@ -9,10 +9,7 @@
 # ‾‾‾‾‾‾‾‾‾‾‾‾‾‾
 hook global WinSetOption filetype=python %{
     # at time of writing, python 3.14 is under preview - kakoune will report the warning as an error
-    # TODO: we get an error from the linter saying the file doesn't exist which is annoying
-    #  but a couple permutations of --stdin-filename didn't address it
-    set-option window lintcmd 'ruff check --preview -'
-    # set-option window lintcmd 'ruff check --preview --stdin-filename %val{bufname:-untitled.py} -'
+    set-option window lintcmd 'ruff check --preview'
     hook window -group python-lint BufReload .* lint-buffer
     hook window -group python-lint BufWritePost .* lint-buffer
     # These are way too slow
