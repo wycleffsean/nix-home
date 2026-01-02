@@ -55,16 +55,16 @@ hook global BufWritePre .* %{
 # ‾‾‾‾‾‾‾‾‾‾‾‾‾‾
 
 hook -group lsp-filetype-python global BufSetOption filetype=python %{
-    set-option buffer lsp_servers %{
-        [ty]
-        root_globs = ["pyproject.toml", "setup.py", "poetry.lock", ".git", ".hg"]
-        args = ["server"]
-    }
     # set-option buffer lsp_servers %{
-    #     [pyright-langserver]
-    #     root_globs = ["pyproject.toml", "setup.py", "poetry.lock", "pyrightconfig.json", ".git", ".hg"]
-    #     args = ["--stdio"]
+    #     [ty]
+    #     root_globs = ["pyproject.toml", "setup.py", "poetry.lock", ".git", ".hg"]
+    #     args = ["server"]
     # }
+    set-option buffer lsp_servers %{
+        [pyright-langserver]
+        root_globs = ["pyproject.toml", "setup.py", "poetry.lock", "pyrightconfig.json", ".git", ".hg"]
+        args = ["--stdio"]
+    }
     # set-option -add buffer lsp_servers %{
     #     [ruff]
     #     args = ["server", "--quiet"]

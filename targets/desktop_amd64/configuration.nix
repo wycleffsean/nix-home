@@ -322,6 +322,7 @@
    pkg-config
    postgres-lsp
    protonplus # needed for battle.net on lutris
+   pyright # python typechecker and LSP
    ruby
    ruff # Extremely fast Python linter and code formatter
    rustc
@@ -329,7 +330,9 @@
    rust-analyzer
    socat
    tmux
-   ty # python typechecker and LSP
+   # TODO: as of now, this version of ty doesn't work very well
+   #   using pyright instead, at a later date we'll switch
+   # ty # python typechecker and LSP
    typescript
    typescript-language-server
    # ungoogled-chromium
