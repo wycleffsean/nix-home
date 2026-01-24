@@ -310,6 +310,7 @@
    godot_4
    gopls # golang LSP
    httpie-desktop
+   ladybird
    libreoffice
    lsof
    lutris # game preservation platform
