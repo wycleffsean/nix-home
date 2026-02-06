@@ -99,10 +99,10 @@
     openFirewall = true;
   };
 
-  services.ollama = {
-      enable = true;
-      acceleration = "cuda";
-  };
+  # services.ollama = {
+  #     enable = true;
+  #     acceleration = "cuda";
+  # };
 
   services.postgresql = {
       enable = true;
@@ -214,8 +214,8 @@
   services.xserver.enable = true;
 
   # Enable the GNOME Desktop Environment.
-  services.xserver.displayManager.gdm.enable = true;
-  services.xserver.desktopManager.gnome.enable = true;
+  services.displayManager.gdm.enable = true;
+  services.desktopManager.gnome.enable = true;
 
   # Configure keymap in X11
   services.xserver.xkb = {
@@ -321,7 +321,7 @@
    nil # nix lsp
    nixfmt-rfc-style
    pkg-config
-   postgres-lsp
+   postgres-language-server
    protonplus # needed for battle.net on lutris
    pyright # python typechecker and LSP
    ruby
@@ -338,7 +338,7 @@
    typescript-language-server
    # ungoogled-chromium
    uv # Extremely fast Python package installer and resolver, written in Rust
-   ventoy-full
+   # ventoy-full
    vscode-langservers-extracted
    xclip
    zig

@@ -6,7 +6,8 @@
   config,
   pkgs,
   ...
-}: {
+}:
+{
   # You can import other home-manager modules here
   imports = [
     # If you want to use home-manager modules from other flakes (such as nix-colors):
@@ -48,16 +49,16 @@
     # fd evince.desktop /
     # see https://discourse.nixos.org/t/set-default-application-for-mime-type-with-home-manager/17190
     associations.added = {
-        "video/mp4" = [
-            "io.github.celluloid_player.Celluloid.desktop"
-            "org.gnome.Totem.desktop"
-        ];
+      "video/mp4" = [
+        "io.github.celluloid_player.Celluloid.desktop"
+        "org.gnome.Totem.desktop"
+      ];
     };
     defaultApplications = {
-        "video/mp4" = [
-            "io.github.celluloid_player.Celluloid.desktop"
-            "org.gnome.Totem.desktop"
-        ];
+      "video/mp4" = [
+        "io.github.celluloid_player.Celluloid.desktop"
+        "org.gnome.Totem.desktop"
+      ];
     };
   };
 
@@ -67,7 +68,7 @@
     homeDirectory = "/home/sean";
     # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
     sessionVariables = {
-        VISUAL = "kak";
+      VISUAL = "kak";
     };
     stateVersion = "24.05";
   };
@@ -78,90 +79,90 @@
     inputs.zak.packages.${pkgs.system}.default
   ];
 
-
   # Enable home-manager and git
   programs.home-manager.enable = true;
   programs.bat.enable = true;
+  programs.difftastic = {
+    enable = true;
+    git.enable = true;
+  };
   programs.direnv = {
     enable = true;
     nix-direnv.enable = true;
   };
   programs.fzf = {
-      enable = true;
-      enableZshIntegration = true;
+    enable = true;
+    enableZshIntegration = true;
   };
   programs.git = {
-      enable = true;
-      # TODO: this stuff should not live in a shared home
-      userEmail = "wycleffsean@gmail.com";
-      userName = "Sean Carey";
-
-      difftastic.enable = true;
-
-      aliases = {
-	chekcout = "checkout";
-	ignored = "ls-files -o -i --exclude-standard";
-	lg = "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit";
-	filelog = "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --numstat -u -- ";
-	assume = "update-index --assume-unchanged";
-	unassume = "update-index --no-assume-unchanged";
-	assumed = "!git ls-files -v | grep ^h | cut -c 3-";
-	unassumeall = "!git assumed | xargs git update-index --no-assume-unchanged";
+    enable = true;
+    settings = {
+      user = {
+        email = "wycleffsean@gmail.com";
+        name = "Sean Carey";
       };
-
-      extraConfig = {
-          pull.rebase = true;
-          rerere.enabled = true;
+      pull.rebase = true;
+      rerere.enabled = true;
+      alias = {
+        chekcout = "checkout";
+        ignored = "ls-files -o -i --exclude-standard";
+        lg = "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit";
+        filelog = "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --numstat -u -- ";
+        assume = "update-index --assume-unchanged";
+        unassume = "update-index --no-assume-unchanged";
+        assumed = "!git ls-files -v | grep ^h | cut -c 3-";
+        unassumeall = "!git assumed | xargs git update-index --no-assume-unchanged";
       };
+    };
 
-      signing = {
-          key = "779787E772A20366721609512AB4271E1454E6BD";
-          # signByDefault = true;
-      };
+    signing = {
+      key = "779787E772A20366721609512AB4271E1454E6BD";
+      # signByDefault = true;
+    };
 
   };
   programs.htop = {
-      enable = true;
+    enable = true;
   };
   programs.ledger = {
-      enable = true;
-      settings = {
-          date-format = "%Y-%m-%d";
-          file = [
-              "~/code/accounting/personal/main.journal"
-          ];
-          sort = "date";
-          # strict = true; # TODO!!!
-      };
+    enable = true;
+    settings = {
+      date-format = "%Y-%m-%d";
+      file = [
+        "~/code/accounting/personal/main.journal"
+      ];
+      sort = "date";
+      # strict = true; # TODO!!!
+    };
   };
   programs.mcfly = {
-      enable = true;
-      enableZshIntegration = true;
-      # fzf.enable = true; # TODO: this errors; best guess is a pkgs version issue
+    enable = true;
+    enableZshIntegration = true;
+    # fzf.enable = true; # TODO: this errors; best guess is a pkgs version issue
   };
   programs.nnn.enable = true;
   programs.ripgrep.enable = true;
   programs.starship = {
-      enable = true;
-      enableZshIntegration = true;
+    enable = true;
+    enableZshIntegration = true;
   };
   programs.zellij = {
-      enable = true;
-      enableZshIntegration = true;
+    enable = true;
+    enableZshIntegration = true;
   };
   programs.zoxide = {
-      enable = true;
-      options = [
-          "--cmd"
-          "j"
-      ];
+    enable = true;
+    options = [
+      "--cmd"
+      "j"
+    ];
   };
   programs.zsh = {
-      enable = true;
-      prezto.enable = true;
-      initExtra = ''
-        eval "$(direnv hook zsh)"
-      '';
+    enable = true;
+    prezto.enable = true;
+    initContent = ''
+      eval "$(direnv hook zsh)"
+    '';
   };
 
   # Nicely reload system units when changing configs

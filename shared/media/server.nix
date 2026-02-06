@@ -1,7 +1,7 @@
 { inputs, outputs, config, lib, pkgs, ... }:
 
 let
-  nixpkgs-24_11 = import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/nixos-24.11.tar.gz") { system = pkgs.system; };
+  nixpkgs-24_11 = import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/nixos-24.11.tar.gz") { system = pkgs.stdenv.hostPlatform.system; };
 in
 {
   imports = [];
