@@ -40,6 +40,7 @@
               "basedir regex" = "/home";
           };
           crypt.path = "/run/media/sean/home/sean/crypt/stuff";
+          foxcroft.path = "/foxcroft";
       };
   };
   services.avahi = {
@@ -86,6 +87,13 @@
       settings = {
           "crypt" = {
               path = "/run/media/sean/home/sean/crypt/stuff";
+              # browseable = "yes";
+              # writable = "no";
+              # "guest ok" = "no";
+              # "read only" = "yes";
+          };
+          "foxcroft" = {
+              path = "/foxcroft";
               # browseable = "yes";
               # writable = "no";
               # "guest ok" = "no";
