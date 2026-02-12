@@ -302,6 +302,7 @@
    # coolercontrol.coolercontrol-liqctld
    # coolercontrol.coolercontrol-ui-data
    deno # typescript language server
+   devilutionx
    discord
    doctl
    editorconfig-core-c
