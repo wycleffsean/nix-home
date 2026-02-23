@@ -2,7 +2,12 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, inputs, ... }:
+{
+  config,
+  pkgs,
+  inputs,
+  ...
+}:
 
 {
   #imports =
@@ -10,21 +15,18 @@
   #    ./hardware-configuration.nix
   #    <home-manager/nixos>
   #  ];
-  imports =
-    [
-      ./hardware-configuration.nix
-      ./boot.nix
-      ./zfs.nix
-      # Import home-manager's NixOS module
-      inputs.home-manager.nixosModules.home-manager
+  imports = [
+    ./hardware-configuration.nix
+    ./boot.nix
+    ./zfs.nix
+    # Import home-manager's NixOS module
+    inputs.home-manager.nixosModules.home-manager
 
-      ../../shared/std.nix
-      ../../shared/users/sean.nix
-      ../../shared/networking/mullvad.nix
-      ../../shared/media/spotify.nix
-    ];
-
-
+    ../../shared/std.nix
+    ../../shared/users/sean.nix
+    ../../shared/networking/mullvad.nix
+    ../../shared/media/spotify.nix
+  ];
 
   # Avoid getty racing / interfering with GDM on the first VT
   # i.e. blank screen with cursor after login (with GDM + Wayland)
@@ -34,72 +36,72 @@
   #### This is the stuff we will copy into git
 
   services.netatalk = {
-      enable = true;
-      settings = {
-          Homes = {
-              "basedir regex" = "/home";
-          };
-          crypt.path = "/run/media/sean/home/sean/crypt/stuff";
-          foxcroft.path = "/foxcroft";
+    enable = true;
+    settings = {
+      Homes = {
+        "basedir regex" = "/home";
       };
+      crypt.path = "/run/media/sean/home/sean/crypt/stuff";
+      foxcroft.path = "/foxcroft";
+    };
   };
   services.avahi = {
+    enable = true;
+    nssmdns4 = true;
+    publish = {
       enable = true;
-      nssmdns4 = true;
-      publish = {
-          enable = true;
-          userServices = true;
-      };
-      extraServiceFiles = {
-          afp = ''
-            <?xml version="1.0" standalone="no"?>
-            <!DOCTYPE service-group SYSTEM "avahi-service.dtd">
+      userServices = true;
+    };
+    extraServiceFiles = {
+      afp = ''
+        <?xml version="1.0" standalone="no"?>
+        <!DOCTYPE service-group SYSTEM "avahi-service.dtd">
 
-            <service-group>
-                <name replace-wildcards="yes">%h</name>
+        <service-group>
+            <name replace-wildcards="yes">%h</name>
 
-                <service>
-                    <type>_device-info._tcp</type>
-                    <port>0</port>
-                    <txt-record>model=Xserve</txt-record>
-                </service>
-            </service-group>
-          '';
-          afpd = ''
-            <?xml version="1.0" standalone="no"?>
-            <!DOCTYPE service-group SYSTEM "avahi-service.dtd">
+            <service>
+                <type>_device-info._tcp</type>
+                <port>0</port>
+                <txt-record>model=Xserve</txt-record>
+            </service>
+        </service-group>
+      '';
+      afpd = ''
+        <?xml version="1.0" standalone="no"?>
+        <!DOCTYPE service-group SYSTEM "avahi-service.dtd">
 
-            <service-group>
-                <name replace-wildcards="yes">%h</name>
+        <service-group>
+            <name replace-wildcards="yes">%h</name>
 
-                <service>
-                    <type>_device-info._tcp</type>
-                    <port>0</port>
-                    <txt-record>model=Xserve</txt-record>
-                </service>
-            </service-group>
-          '';
-      };
+            <service>
+                <type>_device-info._tcp</type>
+                <port>0</port>
+                <txt-record>model=Xserve</txt-record>
+            </service>
+        </service-group>
+      '';
+    };
   };
 
   services.samba = {
-      enable = true;
-      settings = {
-          "crypt" = {
-              path = "/run/media/sean/home/sean/crypt/stuff";
-              # browseable = "yes";
-              # writable = "no";
-              # "guest ok" = "no";
-              # "read only" = "yes";
-          };
-          "foxcroft" = {
-              path = "/foxcroft";
-              # browseable = "yes";
-              # writable = "no";
-              # "guest ok" = "no";
-              # "read only" = "yes";
-          };
+    enable = true;
+    settings = {
+      "crypt" = {
+        path = "/run/media/sean/home/sean/crypt/stuff";
+        # browseable = "yes";
+        # writable = "no";
+        # "guest ok" = "no";
+        # "read only" = "yes";
       };
+      "foxcroft" = {
+        path = "/foxcroft";
+        # browseable = "yes";
+        # writable = "no";
+        # "guest ok" = "no";
+        # "read only" = "yes";
+      };
+    };
   };
 
   services.samba-wsdd = {
@@ -113,27 +115,27 @@
   # };
 
   services.postgresql = {
-      enable = true;
-      ensureDatabases = [ "sean" ];
+    enable = true;
+    ensureDatabases = [ "sean" ];
 
-      authentication = pkgs.lib.mkOverride 10 ''
-        #...
-        #type database DBuser origin-address auth-method
-        local all       all     trust
-        # ipv4
-        host  all      all     127.0.0.1/32   trust
-        # ipv6
-        host all       all     ::1/128        trust
-      '';
+    authentication = pkgs.lib.mkOverride 10 ''
+      #...
+      #type database DBuser origin-address auth-method
+      local all       all     trust
+      # ipv4
+      host  all      all     127.0.0.1/32   trust
+      # ipv6
+      host all       all     ::1/128        trust
+    '';
 
-      identMap = ''
-        # ArbitraryMapName systemUser DBUser
-           superuser_map      root      postgres
-           superuser_map      postgres  postgres
-           superuser_map      sean  postgres
-           # Let other names login as themselves
-           superuser_map      /^(.*)$   \1
-      '';
+    identMap = ''
+      # ArbitraryMapName systemUser DBUser
+         superuser_map      root      postgres
+         superuser_map      postgres  postgres
+         superuser_map      sean  postgres
+         # Let other names login as themselves
+         superuser_map      /^(.*)$   \1
+    '';
   };
 
   services.udisks2 = {
@@ -142,45 +144,47 @@
   };
 
   services.hardware.openrgb = {
-      enable = true;
-      # package = pkgs.openrgb-with-all-plugins;
+    enable = true;
+    # package = pkgs.openrgb-with-all-plugins;
   };
 
   programs._1password.enable = true;
   programs._1password-gui = {
-      enable = true;
-      # Certain features, including CLI integration and system authentication support,
-      # require enabling PolKit integration on some desktop environments (e.g. Plasma).
-      polkitPolicyOwners = [ "sean" ];
+    enable = true;
+    # Certain features, including CLI integration and system authentication support,
+    # require enabling PolKit integration on some desktop environments (e.g. Plasma).
+    polkitPolicyOwners = [ "sean" ];
   };
   programs.coolercontrol.enable = true;
   programs.zsh.enable = true;
 
-  home-manager.users.sean = { pkgs, ...}: {
-     home.packages = [];
-     programs.zsh.enable = true;
+  home-manager.users.sean =
+    { pkgs, ... }:
+    {
+      home.packages = [ ];
+      programs.zsh.enable = true;
 
-     programs.ssh = {
-         enable = true;
-         extraConfig = ''
-         Host *
-         	IdentityAgent ~/.1password/agent.sock
-         '';
-     };
+      programs.ssh = {
+        enable = true;
+        extraConfig = ''
+          Host *
+          	IdentityAgent ~/.1password/agent.sock
+        '';
+      };
 
-     programs.git = {
-         enable = true;
-         # TODO: gpg signing with 1Password. See nixos 1password wiki
-     };
+      programs.git = {
+        enable = true;
+        # TODO: gpg signing with 1Password. See nixos 1password wiki
+      };
 
-     # The state version is required and should stay at the version you originally installed
-     home.stateVersion = "24.05";
-  };
-
-  fileSystems."/run/media/sean/home" =
-    { device = "/dev/disk/by-uuid/dc64c413-9903-4d41-9495-89814665bb14";
-      fsType = "ext4";
+      # The state version is required and should stay at the version you originally installed
+      home.stateVersion = "24.05";
     };
+
+  fileSystems."/run/media/sean/home" = {
+    device = "/dev/disk/by-uuid/dc64c413-9903-4d41-9495-89814665bb14";
+    fsType = "ext4";
+  };
 
   #### END COPY
 
@@ -252,13 +256,13 @@
 
   hardware.graphics.enable = true;
   hardware.graphics.enable32Bit = true;
-  services.xserver.videoDrivers = ["nvidia"];
+  services.xserver.videoDrivers = [ "nvidia" ];
   hardware.nvidia = {
-      modesetting.enable = true;
-      nvidiaSettings = true;
-      open = true;
-      powerManagement.enable = true;
-      package = config.boot.kernelPackages.nvidiaPackages.latest;
+    modesetting.enable = true;
+    nvidiaSettings = true;
+    open = true;
+    powerManagement.enable = true;
+    package = config.boot.kernelPackages.nvidiaPackages.latest;
   };
 
   # Enable touchpad support (enabled default in most desktopManager).
@@ -268,9 +272,12 @@
   users.users.sean = {
     isNormalUser = true;
     description = "Sean Carey";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+    ];
     packages = with pkgs; [
-    #  thunderbird
+      #  thunderbird
     ];
   };
 
@@ -290,69 +297,70 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-   bear # compile-commands.json for clangd lsp
-   blender
-   bottles
-   btop
-   cargo
-   celluloid
-   clang-tools # we really only want clangd, the lsp
-   # coolercontrol.coolercontrol-gui
-   # coolercontrol.coolercontrold
-   # coolercontrol.coolercontrol-liqctld
-   # coolercontrol.coolercontrol-ui-data
-   deno # typescript language server
-   devilutionx
-   discord
-   doctl
-   editorconfig-core-c
-   encfs
-   entr
-   gamemode # for lutris
-   gamescope # for lutris
-   gcc
-   gdb
-   ghostty
-   glances
-   gnumake
-   go
-   godot_4
-   gopls # golang LSP
-   httpie-desktop
-   ladybird
-   libreoffice
-   lsof
-   lutris # game preservation platform
-   man-pages
-   man-pages-posix
-   mangohud # for lutris
-   mosh
-   nil # nix lsp
-   nixfmt-rfc-style
-   pkg-config
-   postgres-language-server
-   protonplus # needed for battle.net on lutris
-   pyright # python typechecker and LSP
-   ruby
-   ruff # Extremely fast Python linter and code formatter
-   rustc
-   rustfmt
-   rust-analyzer
-   socat
-   tmux
-   # TODO: as of now, this version of ty doesn't work very well
-   #   using pyright instead, at a later date we'll switch
-   # ty # python typechecker and LSP
-   typescript
-   typescript-language-server
-   # ungoogled-chromium
-   uv # Extremely fast Python package installer and resolver, written in Rust
-   # ventoy-full
-   vscode-langservers-extracted
-   xclip
-   zig
-   zls
-  #  wget
+    bear # compile-commands.json for clangd lsp
+    blender
+    bottles
+    btop
+    cargo
+    celluloid
+    clang-tools # we really only want clangd, the lsp
+    # coolercontrol.coolercontrol-gui
+    # coolercontrol.coolercontrold
+    # coolercontrol.coolercontrol-liqctld
+    # coolercontrol.coolercontrol-ui-data
+    deno # typescript language server
+    devilutionx
+    discord
+    doctl
+    editorconfig-core-c
+    encfs
+    entr
+    gamemode # for lutris
+    gamescope # for lutris
+    gcc
+    gdb
+    ghostty
+    glances
+    gnumake
+    go
+    godot_4
+    gopls # golang LSP
+    httpie-desktop
+    ladybird
+    libreoffice
+    lsof
+    lutris # game preservation platform
+    man-pages
+    man-pages-posix
+    mangohud # for lutris
+    mosh
+    nil # nix lsp
+    nixfmt-rfc-style
+    pkg-config
+    postgres-language-server
+    protonplus # needed for battle.net on lutris
+    pyright # python typechecker and LSP
+    ruby
+    ruff # Extremely fast Python linter and code formatter
+    rustc
+    rustfmt
+    rust-analyzer
+    socat
+    tmux
+    # TODO: as of now, this version of ty doesn't work very well
+    #   using pyright instead, at a later date we'll switch
+    # ty # python typechecker and LSP
+    typescript
+    typescript-language-server
+    # ungoogled-chromium
+    uv # Extremely fast Python package installer and resolver, written in Rust
+    # ventoy-full
+    vscode-langservers-extracted
+    xclip
+    xeyes
+    zig
+    zls
+    #  wget
   ];
 
   # Enable docker
@@ -378,6 +386,8 @@
       KbdInteractiveAuthentication = false;
       PermitRootLogin = "no";
       AllowUsers = [ "sean" ];
+      X11Forwarding = true;
+      X11UseLocalhost = true;
     };
   };
   services.fail2ban = {
@@ -395,16 +405,16 @@
 
   # Open ports in the firewall.
   networking.firewall.allowedTCPPorts = [
-      #Samba
-      139 # NetBIOS
-      445 # SMB
+    #Samba
+    139 # NetBIOS
+    445 # SMB
 
-      548 # netatalk
-      1234 # openra
+    548 # netatalk
+    1234 # openra
   ];
   networking.firewall.allowedUDPPorts = [
-  ] ++
-    pkgs.lib.lists.range 60000 61000; # mosh
+  ]
+  ++ pkgs.lib.lists.range 60000 61000; # mosh
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
 
