@@ -169,6 +169,11 @@
         extraConfig = ''
           Host *
           	IdentityAgent ~/.1password/agent.sock
+          Host macbook-pro
+            Hostname MacBook-Pro.local
+            User sean
+            PubkeyAuthentication unbound
+            IdentitiesOnly no
         '';
       };
 
