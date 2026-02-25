@@ -59,6 +59,10 @@
         "io.github.celluloid_player.Celluloid.desktop"
         "org.gnome.Totem.desktop"
       ];
+      "text/html" = [ "firefox.desktop" ];
+      "x-scheme-handler/http" = [ "firefox.desktop" ];
+      "x-scheme-handler/https" = [ "firefox.desktop" ];
+
     };
   };
 
