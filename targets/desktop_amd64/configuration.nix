@@ -348,6 +348,7 @@
     ruby
     ruff # Extremely fast Python linter and code formatter
     rustc
+    rustdesk # remote desktop
     rustfmt
     rust-analyzer
     socat
