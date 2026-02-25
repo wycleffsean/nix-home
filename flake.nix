@@ -4,6 +4,7 @@
   inputs = {
     # Nixpkgs
     nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
+    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 
     # Nix Darwin
     nix-darwin.url = "github:LnL7/nix-darwin";
@@ -20,6 +21,7 @@
   outputs = {
     self,
     nixpkgs,
+    nixpkgs-unstable,
     nix-darwin,
     home-manager,
     ...
@@ -33,7 +35,10 @@
     # plus 'nixos-rebuild --flake .' can lead to mistakes
     nixosConfigurations = {
       "nixos" = nixpkgs.lib.nixosSystem {
-        specialArgs = {inherit inputs outputs;};
+        specialArgs = {
+          pkgs-unstable = nixpkgs-unstable.legacyPackages.x86_64-linux;
+          inherit inputs outputs;
+        };
         # > Our main nixos configuration file <
         modules = [
             ./targets/desktop_amd64/configuration.nix

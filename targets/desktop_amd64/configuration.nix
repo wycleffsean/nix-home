@@ -5,6 +5,7 @@
 {
   config,
   pkgs,
+  pkgs-unstable,
   inputs,
   ...
 }:
@@ -109,10 +110,15 @@
     openFirewall = true;
   };
 
-  # services.ollama = {
-  #     enable = true;
-  #     acceleration = "cuda";
-  # };
+  services.ollama = {
+    enable = true;
+    acceleration = "cuda";
+    package = pkgs-unstable.ollama;
+    loadModels = [
+      # "qwen3-coder:latest" # 19GB
+      "glm-4.7-flash:latest" # 19GB
+    ];
+  };
 
   services.postgresql = {
     enable = true;
@@ -309,6 +315,8 @@
     cargo
     celluloid
     clang-tools # we really only want clangd, the lsp
+    claude-code
+    codex
     # coolercontrol.coolercontrol-gui
     # coolercontrol.coolercontrold
     # coolercontrol.coolercontrol-liqctld
