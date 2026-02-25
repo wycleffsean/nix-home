@@ -338,6 +338,7 @@
     man-pages
     man-pages-posix
     mangohud # for lutris
+    # (callPackage ../../pkgs/micasa.nix {})
     mosh
     nil # nix lsp
     nixfmt-rfc-style
