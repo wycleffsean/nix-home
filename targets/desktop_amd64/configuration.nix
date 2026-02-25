@@ -114,9 +114,11 @@
     enable = true;
     acceleration = "cuda";
     package = pkgs-unstable.ollama;
+    user = "ollama";
+    models = "/foxcroft/ai_models/ollama";
     loadModels = [
       # "qwen3-coder:latest" # 19GB
-      "glm-4.7-flash:latest" # 19GB
+      # "glm-4.7-flash:latest" # 19GB
     ];
   };
 
