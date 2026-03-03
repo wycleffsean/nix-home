@@ -3,18 +3,25 @@ eval %sh{kak-lsp --kakoune -s $kak_session}
 # uncomment to troubleshoot
 # set global lsp_cmd "kak-lsp -s %val{session} -vvv --log /tmp/kak-lsp.log"
 lsp-enable # is this needed?
+lsp-inlay-hints-enable global
+lsp-inlay-diagnostics-enable global
+lsp-auto-hover-enable
 
-# Define a function to show hover info
-define-command lsp-auto-hover %{
-    evaluate-commands %{
-        try %{ lsp-hover }
-    }
-}
+# anchor hover information to cursor instead of clippy
+# set-option lsp_hover_anchor global true
+set-option global lsp_auto_highlight_references true
 
-# Hook to show hover info when stopping in normal mode
-hook global NormalIdle .* %{
-    lsp-auto-hover
-}
+# # Define a function to show hover info
+# define-command lsp-auto-hover %{
+#     evaluate-commands %{
+#         try %{ lsp-hover }
+#     }
+# }
+
+# # Hook to show hover info when stopping in normal mode
+# hook global NormalIdle .* %{
+#     lsp-auto-hover
+# }
 
 # enable for all languages that we want to use the LSP, here we're enabling C++ and Zig.
 hook global WinSetOption filetype=(c|cpp|zig|ruby|python) %{
@@ -25,12 +32,6 @@ hook global WinSetOption filetype=(c|cpp|zig|ruby|python) %{
     lsp-auto-hover-enable
     lsp-auto-signature-help-enable
     lsp-auto-hover-insert-mode-disable
-
-    # potentially buggy
-    # https://github.com/kakoune-lsp/kakoune-lsp?tab=readme-ov-file#inlay-hints
-    lsp-inlay-hints-enable global
-    lsp-inlay-diagnostics-enable global
-
 }
 
 # map global user l %{:enter-user-mode lsp<ret>} -docstring "LSP mode"
@@ -41,3 +42,38 @@ hook global WinSetOption filetype=(c|cpp|zig|ruby|python) %{
 # map global object t '<a-semicolon>lsp-object Class Interface Struct<ret>' -docstring 'LSP class interface or struct'
 # map global object d '<a-semicolon>lsp-diagnostic-object --include-warnings<ret>' -docstring 'LSP errors and warnings'
 # map global object D '<a-semicolon>lsp-diagnostic-object<ret>' -docstring 'LSP errors'
+
+# Faces
+
+# Base info box
+face global InfoDefault               Information
+
+# Code blocks
+# face global InfoBlock                 fg=rgb:dddddd,bg=rgb:303030
+# face global InfoMono                  fg=rgb:ffd787,bg=rgb:303030
+
+# # Block quotes
+# face global InfoBlockQuote            fg=rgb:87afd7,italic
+
+# # Bullets
+# face global InfoBullet                fg=rgb:ffaf5f,bold
+
+# # Headers
+# face global InfoHeader                fg=rgb:5fd7ff,bold
+
+# # Links
+# face global InfoLink                  fg=rgb:87afff,underline
+# face global InfoLinkMono              fg=rgb:87afff,underline,bold
+
+# # Horizontal rules
+# face global InfoRule                  fg=rgb:5f5f5f
+
+# Diagnostics
+# face global InfoDiagnosticError       fg=rgb:ff5f5f,bold
+# face global InfoDiagnosticWarning     fg=rgb:ffaf00,bold
+# face global InfoDiagnosticInformation fg=rgb:5fd7ff
+# face global InfoDiagnosticHint        fg=rgb:87d7af,italic
+face global InfoDiagnosticError       DiagnosticError
+face global InfoDiagnosticWarning     DiagnosticWarning
+face global InfoDiagnosticInformation DiagnosticInfo
+face global InfoDiagnosticHint        DiagnosticHint
