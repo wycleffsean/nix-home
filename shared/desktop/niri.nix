@@ -50,6 +50,8 @@
 
     # optional: power menu
     wlogout
+
+    xwayland-satellite
   ];
 
   #### Recommended: make sure common Wayland env vars are sane
