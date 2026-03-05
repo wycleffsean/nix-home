@@ -24,6 +24,7 @@
     inputs.home-manager.nixosModules.home-manager
 
     ../../shared/std.nix
+    ../../shared/desktop/niri.nix
     ../../shared/users/sean.nix
     ../../shared/networking/mullvad.nix
     ../../shared/media/spotify.nix
@@ -258,7 +259,10 @@
   services.xserver.enable = true;
 
   # Enable the GNOME Desktop Environment.
-  services.displayManager.gdm.enable = true;
+  services.displayManager.gdm = {
+    enable = true;
+    wayland = true; # required for Niri sessions
+  };
   services.desktopManager.gnome.enable = true;
 
   # Configure keymap in X11
