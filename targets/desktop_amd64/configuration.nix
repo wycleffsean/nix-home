@@ -114,8 +114,20 @@
     enable = true;
     acceleration = "cuda";
     package = pkgs-unstable.ollama;
-    user = "ollama";
+    # home = "/home/sean"; # otherwise it writes to /var/lib/ollama/.ollama
+    # user can't read /home/sean
+    # but we needed it (instead of DynamicUser) so
+    # we could set fs perms for the zfs dataset
+    # user = "ollama";
+    # just made this chmod -R 777 so
+    # we don't have to deal with all of the headaches
     models = "/foxcroft/ai_models/ollama";
+    environmentVariables = {
+      # https://docs.ollama.com/context-length
+      # this is a stretch on our vram budget
+      # but also basically necessary for coding agents
+      OLLAMA_CONTEXT_LENGTH = "64000";
+    };
     loadModels = [
       # "qwen3-coder:latest" # 19GB
       # "glm-4.7-flash:latest" # 19GB
@@ -209,6 +221,12 @@
   #boot.loader.efi.canTouchEfiVariables = true;
 
   networking.hostName = "nixos"; # Define your hostname.
+  # https://github.com/ollama/ollama/issues/3931#issuecomment-2623391542
+  # networking.nameservers = [
+  #   "8.8.8.8"
+  #   "8.8.4.4"
+  # ];
+
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Configure network proxy if necessary
