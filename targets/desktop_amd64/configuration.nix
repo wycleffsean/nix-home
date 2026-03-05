@@ -164,6 +164,7 @@
     polkitPolicyOwners = [ "sean" ];
   };
   programs.coolercontrol.enable = true;
+  programs.dconf.enable = true; # for gtk/qt apps like duckstation
   programs.zsh.enable = true;
 
   home-manager.users.sean =
@@ -327,6 +328,7 @@
     devilutionx
     discord
     doctl
+    duckstation # PS1 Emulator
     editorconfig-core-c
     encfs
     entr
