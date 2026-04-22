@@ -7,7 +7,7 @@
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 
     # Nix Darwin
-    nix-darwin.url = "github:LnL7/nix-darwin";
+    nix-darwin.url = "github:nix-darwin/nix-darwin/nix-darwin-25.11";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
 
     # Home manager
@@ -64,6 +64,11 @@
 
     # 13" 2020 M1 machine
     darwinConfigurations."MacBook-Pro" = nix-darwin.lib.darwinSystem {
+      specialArgs = {inherit self inputs outputs;};
+      modules = [ ./targets/macbook_pro/configuration.nix ];
+    };
+
+    darwinConfigurations."Mac-mini" = nix-darwin.lib.darwinSystem {
       specialArgs = {inherit self inputs outputs;};
       modules = [ ./targets/macbook_pro/configuration.nix ];
     };

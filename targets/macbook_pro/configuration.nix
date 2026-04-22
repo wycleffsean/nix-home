@@ -31,8 +31,14 @@
 #          pkgs._1password-gui
         ];
 
+      nix.enable = false; # Let Determinate Nix handle the Nix daemon/config
+
       # Necessary for using flakes on this system.
       nix.settings.experimental-features = "nix-command flakes";
+
+      system.primaryUser = "sean";
+
+      environment.pathsToLink = [ "/Applications" ];
 
       # Enable alternative shell support in nix-darwin.
       # programs.fish.enable = true;
@@ -51,6 +57,7 @@
         enable = true;
         brews = [
           "kakoune"
+          "gpg"
         ];
         casks = [
           "1password"
