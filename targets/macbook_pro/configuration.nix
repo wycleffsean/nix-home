@@ -38,6 +38,8 @@
 
       system.primaryUser = "sean";
 
+      home-manager.users.sean.home.homeDirectory = pkgs.lib.mkForce "/Users/sean";
+
       environment.pathsToLink = [ "/Applications" ];
 
       # Enable alternative shell support in nix-darwin.

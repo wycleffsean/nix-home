@@ -70,7 +70,15 @@
 
     darwinConfigurations."Mac-mini" = nix-darwin.lib.darwinSystem {
       specialArgs = {inherit self inputs outputs;};
-      modules = [ ./targets/macbook_pro/configuration.nix ];
+      modules = [
+          ./targets/macbook_pro/configuration.nix
+          inputs.home-manager.darwinModules.home-manager {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.extraSpecialArgs = { inherit inputs outputs; };
+              home-manager.users.sean = import ./shared/home-manager/home.nix;
+          }
+      ];
     };
 
     # Standalone home-manager configuration entrypoint
