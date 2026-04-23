@@ -18,6 +18,7 @@
       #inputs.home-manager.nixosModules.home-manager
 
       #../../shared/std.nix
+      ../../shared/packages/cli.nix
       #../../shared/users/sean.nix
       #../../shared/networking/mullvad.nix
     ];
@@ -66,6 +67,7 @@
           "alfred"
           "daisydisk"
           "discord"
+          "ghostty"
           "iina"
           "viscosity"
         ];

@@ -24,6 +24,7 @@
     inputs.home-manager.nixosModules.home-manager
 
     ../../shared/std.nix
+    ../../shared/packages/cli.nix
     ../../shared/desktop/niri.nix
     ../../shared/users/sean.nix
     ../../shared/networking/mullvad.nix
@@ -333,37 +334,28 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    bear # compile-commands.json for clangd lsp
     blender
     bottles
-    btop
     cargo
     celluloid
-    clang-tools # we really only want clangd, the lsp
     claude-code
     codex
     # coolercontrol.coolercontrol-gui
     # coolercontrol.coolercontrold
     # coolercontrol.coolercontrol-liqctld
     # coolercontrol.coolercontrol-ui-data
-    deno # typescript language server
     devilutionx
     discord
     doctl
     duckstation # PS1 Emulator
-    editorconfig-core-c
     encfs
-    entr
     gamemode # for lutris
     gamescope # for lutris
     gcc
     gdb
     ghostty
-    glances
     gnumake
-    go
     godot_4
-    gopls # golang LSP
     httpie-desktop
     ladybird
     libreoffice
@@ -372,35 +364,18 @@
     man-pages
     man-pages-posix
     mangohud # for lutris
-    # (callPackage ../../pkgs/micasa.nix {})
-    mosh
-    nil # nix lsp
-    nixfmt-rfc-style
     pkg-config
-    postgres-language-server
     protonplus # needed for battle.net on lutris
-    pyright # python typechecker and LSP
     ruby
-    ruff # Extremely fast Python linter and code formatter
     rustc
     rustdesk # remote desktop
-    rustfmt
-    rust-analyzer
     socat
-    tmux
-    # TODO: as of now, this version of ty doesn't work very well
-    #   using pyright instead, at a later date we'll switch
-    # ty # python typechecker and LSP
     typescript
-    typescript-language-server
     # ungoogled-chromium
-    uv # Extremely fast Python package installer and resolver, written in Rust
     # ventoy-full
     vscode-langservers-extracted
     xclip
     xeyes
-    zig
-    zls
     #  wget
   ];
 
