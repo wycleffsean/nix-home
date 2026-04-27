@@ -69,11 +69,12 @@
           "discord"
           "ghostty"
           "iina"
-          "viscosity"
+          #"viscosity"
         ];
         masApps = {
           "1Password for Safari" = 1569813296;
           "Things 3" = 904280696;
+          "WireGuard" = 1451685025;
         };
       };
     }
