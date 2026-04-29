@@ -28,7 +28,7 @@ hook global WinSetOption filetype=(c|cpp|zig|ruby|python) %{
     lsp-enable-window
     # the options below are optional (and self-explanatory)
     set-option window lsp_auto_show_code_actions true
-    lsp-code-actions-enable
+    # lsp-code-actions-enable
     lsp-auto-hover-enable
     lsp-auto-signature-help-enable
     lsp-auto-hover-insert-mode-disable

@@ -152,11 +152,11 @@ args = ["--stdio"]
 # # See https://github.dev/eclipse/eclipse.jdt.ls
 # # "java.format.insertSpaces" = true
 
-# [language.jsx] # works for javascript as well
-# filetypes = ["javascript"]
-# roots = ["package.json", "tsconfig.json", ".git", ".hg"]
-# command = "typescript-language-server"
-# args = ["--stdio"]
+[language.jsx] # works for javascript as well
+filetypes = ["javascript"]
+roots = ["package.json", "tsconfig.json", ".git", ".hg"]
+command = "typescript-language-server"
+args = ["--stdio"]
 
 [language.json]
 filetypes = ["json"]
@@ -248,6 +248,13 @@ command = "lua-language-server"
 # See https://github.com/sumneko/vscode-lua/blob/master/setting/schema.json
 # diagnostics.enable = true
 
+# https://github.com/zk-org/zk/issues/22#issuecomment-1253927188
+[language.markdown]
+filetypes = ["markdown"]
+roots = [".zk"]
+command = "zk"
+args = ["lsp"]
+
 [language.nim]
 filetypes = ["nim"]
 roots = ["*.nimble", ".git", ".hg"]
@@ -256,7 +263,7 @@ command = "nimlsp"
 [language.nix]
 filetypes = ["nix"]
 roots = ["flake.nix", "shell.nix", ".git", ".hg"]
-command = "nil"
+command = "nixd"
 
 [language.nostos]
 filetypes = ["nostos"]
@@ -282,16 +289,11 @@ settings_section = "intelephense"
 [language.php.settings]
 intelephense.storagePath = "/tmp/intelephense"
 
-[language.postgres]
-filetypes = ["sql"]
-command = "postgres_lsp"
-roots = ["postgrestools.jsonc"]
-
 [language.python]
 filetypes = ["python"]
 roots = ["requirements.txt", "setup.py", ".git", ".hg"]
-command = "pylsp"
-settings_section = "_"
+command = "jedi-language-server"
+# settings_section = "_"
 [language.python.settings._]
 # See https://github.com/python-lsp/python-lsp-server#configuration
 # pylsp.configurationSources = ["flake8"]
