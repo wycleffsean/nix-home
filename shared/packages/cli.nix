@@ -12,7 +12,7 @@
     gopls # golang LSP
     # (callPackage ../../pkgs/micasa.nix {})
     mosh
-    nil # nix lsp
+    nixd # nix lsp
     nixfmt-rfc-style
     postgres-language-server
     pyright # python typechecker and LSP
