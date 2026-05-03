@@ -22,7 +22,7 @@
     tmux
     # TODO: as of now, this version of ty doesn't work very well
     #   using pyright instead, at a later date we'll switch
-    # ty # python typechecker and LSP
+    ty # python typechecker and LSP
     typescript-language-server
     uv # Extremely fast Python package installer and resolver, written in Rust
     zig

@@ -16,9 +16,13 @@ remove-hooks global lsp-filetype-python
 # Buffer-scoped setup: safe place for buffer options and save hooks.
 hook -group lsp-filetype-python global BufSetOption filetype=python %{
     set-option buffer lsp_servers %{
-        [pyright-langserver]
+        # [pyright-langserver]
+        # root_globs = ["pyproject.toml", "uv.lock", "setup.py", "setup.cfg", "pyrightconfig.json", ".git", ".hg"]
+        # args = ["--stdio"]
+
+        [ty]
         root_globs = ["pyproject.toml", "uv.lock", "setup.py", "setup.cfg", "pyrightconfig.json", ".git", ".hg"]
-        args = ["--stdio"]
+        args = ["server"]
 
         [ruff]
         root_globs = ["pyproject.toml", "ruff.toml", ".ruff.toml", "uv.lock", ".git", ".hg"]
