@@ -112,29 +112,29 @@
     openFirewall = true;
   };
 
-  services.ollama = {
-    enable = true;
-    acceleration = "cuda";
-    package = pkgs-unstable.ollama;
-    # home = "/home/sean"; # otherwise it writes to /var/lib/ollama/.ollama
-    # user can't read /home/sean
-    # but we needed it (instead of DynamicUser) so
-    # we could set fs perms for the zfs dataset
-    # user = "ollama";
-    # just made this chmod -R 777 so
-    # we don't have to deal with all of the headaches
-    models = "/foxcroft/ai_models/ollama";
-    environmentVariables = {
-      # https://docs.ollama.com/context-length
-      # this is a stretch on our vram budget
-      # but also basically necessary for coding agents
-      OLLAMA_CONTEXT_LENGTH = "64000";
-    };
-    loadModels = [
-      # "qwen3-coder:latest" # 19GB
-      # "glm-4.7-flash:latest" # 19GB
-    ];
-  };
+  # services.ollama = {
+  #   enable = true;
+  #   acceleration = "cuda";
+  #   package = pkgs-unstable.ollama;
+  #   # home = "/home/sean"; # otherwise it writes to /var/lib/ollama/.ollama
+  #   # user can't read /home/sean
+  #   # but we needed it (instead of DynamicUser) so
+  #   # we could set fs perms for the zfs dataset
+  #   # user = "ollama";
+  #   # just made this chmod -R 777 so
+  #   # we don't have to deal with all of the headaches
+  #   models = "/foxcroft/ai_models/ollama";
+  #   environmentVariables = {
+  #     # https://docs.ollama.com/context-length
+  #     # this is a stretch on our vram budget
+  #     # but also basically necessary for coding agents
+  #     OLLAMA_CONTEXT_LENGTH = "64000";
+  #   };
+  #   loadModels = [
+  #     # "qwen3-coder:latest" # 19GB
+  #     # "glm-4.7-flash:latest" # 19GB
+  #   ];
+  # };
 
   services.postgresql = {
     enable = true;
@@ -262,7 +262,7 @@
   # Enable the GNOME Desktop Environment.
   services.displayManager.gdm = {
     enable = true;
-    wayland = true; # required for Niri sessions
+    # wayland = true; # required for Niri sessions
   };
   services.desktopManager.gnome.enable = true;
 
@@ -301,6 +301,7 @@
     powerManagement.enable = true;
     package = config.boot.kernelPackages.nvidiaPackages.latest;
   };
+  hardware.nvidia-container-toolkit.enable = true;
 
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
@@ -325,6 +326,7 @@
   # TODO: set unfree predicates instead i.e. explicitly list unfree software
   nixpkgs.config = {
     allowUnfree = true;
+    # cudaSupport = true; # causes blender/suitesparse ptxas segfault; dev shell manages CUDA libs directly
     permittedInsecurePackages = [
       "ventoy-1.1.05"
       "mbedtls-2.28.10"
@@ -334,7 +336,7 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    blender
+    # blender -- use flatpak or `nix run nixpkgs#blender` (system pkg triggers cudaSupport ptxas segfault in 26.05)
     bottles
     cargo
     celluloid
@@ -344,10 +346,10 @@
     # coolercontrol.coolercontrold
     # coolercontrol.coolercontrol-liqctld
     # coolercontrol.coolercontrol-ui-data
-    devilutionx
+    # devilutionx
     discord
     doctl
-    duckstation # PS1 Emulator
+    # duckstation # PS1 Emulator
     encfs
     gamemode # for lutris
     gamescope # for lutris
@@ -368,7 +370,7 @@
     protonplus # needed for battle.net on lutris
     ruby
     rustc
-    rustdesk # remote desktop
+    # rustdesk # remote desktop -- build broken in 26.05 (cargo vendor fetches from github at build time)
     socat
     typescript
     # ungoogled-chromium
