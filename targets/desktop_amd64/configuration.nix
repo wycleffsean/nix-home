@@ -179,6 +179,7 @@
   };
   programs.coolercontrol.enable = true;
   programs.dconf.enable = true; # for gtk/qt apps like duckstation
+  programs.nix-ld.enable = true;
   programs.zsh.enable = true;
 
   home-manager.users.sean =
