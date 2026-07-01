@@ -15,6 +15,7 @@
 
     # You can also split up your configuration and import pieces of it here:
     ./kakoune.nix
+    ./ruby.nix
   ];
 
   # nixpkgs = {
@@ -69,9 +70,7 @@
   # TODO: Set your username
   home = {
     username = "sean";
-    homeDirectory = lib.mkDefault (if pkgs.stdenv.isDarwin
-                    then "/Users/sean"
-                    else "/home/sean");
+    homeDirectory = lib.mkDefault (if pkgs.stdenv.isDarwin then "/Users/sean" else "/home/sean");
     # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
     sessionVariables = {
       VISUAL = "kak";
@@ -102,6 +101,9 @@
   };
   programs.git = {
     enable = true;
+    ignores = [
+      "**/.claude/settings.local.json"
+    ];
     settings = {
       user = {
         email = "wycleffsean@gmail.com";
