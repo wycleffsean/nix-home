@@ -118,12 +118,17 @@ in
           ruby-ri-bootstrap
         fi
 
+        if [ "''${1:-}" = "--list" ]; then
+          ${ruby}/bin/ri --doc-dir "$docdir" --list
+          exit 0
+        fi
+
         if [ "$#" -eq 0 ]; then
           ${ruby}/bin/ri --doc-dir "$docdir" --list \
             | ${pkgs.fzf}/bin/fzf \
-            | xargs -r ${ruby}/bin/ri --doc-dir "$docdir"
+            | xargs -r ${ruby}/bin/ri --doc-dir "$docdir" -T --format=rdoc
         else
-          ${ruby}/bin/ri --doc-dir "$docdir" "$@"
+          ${ruby}/bin/ri --doc-dir "$docdir" -T --format=rdoc "$@"
         fi
       '';
     };

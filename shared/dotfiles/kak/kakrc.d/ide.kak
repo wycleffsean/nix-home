@@ -22,6 +22,10 @@
 #     tmux select-pane -t 0
 # } }
 
+try %{ declare-option -docstring "name of the main editing client" str jumpclient main }
+try %{ declare-option -docstring "name of the client in which utilities display information" str toolsclient tools }
+try %{ declare-option -docstring "name of the client in which documentation is displayed" str docsclient docs }
+
 define-command ide -params 0..1 %{
     try %{ rename-session %arg{1} }
 

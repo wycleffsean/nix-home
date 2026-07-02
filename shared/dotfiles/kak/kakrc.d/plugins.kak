@@ -18,3 +18,7 @@ plug "andreyorst/fzf.kak" config %{
 }
 
 plug "eraserhd/kak-ansi"
+
+plug "eburghar/kakpipe" do %{
+	cargo install --force --path . --root ~/.local
+}
