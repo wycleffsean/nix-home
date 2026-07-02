@@ -163,6 +163,7 @@ map global user m %{:enter-user-mode man<ret>} -docstring "manpage mode"
 map global user p %{:enter-user-mode clipboard<ret>} -docstring "clipboard"
 map global user g %{: require-module fzf-vcs; fzf-vcs<ret>} -docstring 'Find file in VCS (filters out .git folder!)'
 
+map global user ? %{:%opt{doccmd}<ret>} -docstring 'Open documentation'
 
 
 
