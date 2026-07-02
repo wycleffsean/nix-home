@@ -52,12 +52,81 @@ in
 
   home.sessionPath = [
     "${config.xdg.dataHome}/gem/ruby/${rubyApiVersion}/bin"
-    # TODO: probably doesn't belong with ruby.nix
-    "${config.home.homeDirectory}/.local/bin"
   ];
 
   programs.git.ignores = [
     ".ruby-lsp/"
     ".bundle/"
   ];
+
+  home.file = {
+    ".local/bin/ruby-ri-bootstrap" = {
+      executable = true;
+      text = ''
+        #!${pkgs.bash}/bin/bash
+        set -euo pipefail
+
+        ruby_version="$(${ruby}/bin/ruby -e 'print RUBY_VERSION')"
+        base="''${XDG_DATA_HOME:-$HOME/.local/share}/ruby-ri"
+        out="$base/ruby-$ruby_version"
+        stamp="$out/.complete"
+
+        if [ -f "$stamp" ]; then
+          echo "Ruby RI docs already exist: $out"
+          exit 0
+        fi
+
+        rm -rf "$out"
+        mkdir -p "$base"
+
+        work="$(${pkgs.coreutils}/bin/mktemp -d)"
+        trap 'rm -rf "$work"' EXIT
+
+        src="${ruby.src}"
+
+        if [ -d "$src" ]; then
+          cp -R "$src" "$work/ruby-src"
+          ruby_src="$work/ruby-src"
+        else
+          ${pkgs.gnutar}/bin/tar -xf "$src" -C "$work"
+          ruby_src="$(${pkgs.findutils}/bin/find "$work" -maxdepth 1 -type d -name 'ruby-*' | ${pkgs.coreutils}/bin/head -n1)"
+        fi
+
+        tmpout="$work/ri-out"
+
+        # Do not pre-create "$tmpout"; RDoc refuses an existing non-RDoc output dir.
+        echo "Generating RI docs from $ruby_src"
+        ${ruby}/bin/rdoc --ri --op "$tmpout" "$ruby_src" >/dev/null
+
+        touch "$tmpout/.complete"
+        mv "$tmpout" "$out"
+
+        echo "Generated RI docs in $out"
+      '';
+    };
+
+    ".local/bin/rbdoc" = {
+      executable = true;
+      text = ''
+        #!${pkgs.bash}/bin/bash
+        set -euo pipefail
+
+        ruby_version="$(${ruby}/bin/ruby -e 'print RUBY_VERSION')"
+        docdir="''${XDG_DATA_HOME:-$HOME/.local/share}/ruby-ri/ruby-$ruby_version"
+
+        if [ ! -f "$docdir/.complete" ]; then
+          ruby-ri-bootstrap
+        fi
+
+        if [ "$#" -eq 0 ]; then
+          ${ruby}/bin/ri --doc-dir "$docdir" --list \
+            | ${pkgs.fzf}/bin/fzf \
+            | xargs -r ${ruby}/bin/ri --doc-dir "$docdir"
+        else
+          ${ruby}/bin/ri --doc-dir "$docdir" "$@"
+        fi
+      '';
+    };
+  };
+
 }

@@ -71,10 +71,13 @@
   home = {
     username = "sean";
     homeDirectory = lib.mkDefault (if pkgs.stdenv.isDarwin then "/Users/sean" else "/home/sean");
-    # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
+    sessionPath = [
+      "${config.home.homeDirectory}/.local/bin"
+    ];
     sessionVariables = {
       VISUAL = "kak";
     };
+    # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
     stateVersion = "24.05";
   };
 
