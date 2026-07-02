@@ -26,6 +26,22 @@ hook global BufSetOption filetype=ruby %{
     set-option	buffer indentwidth 2
 }
 
+hook -group lsp-filetype-ruby global BufSetOption filetype=ruby %{
+    set-option buffer lsp_servers %{
+        # [solargraph]
+        # root_globs = ["Gemfile"]
+        # args = ["stdio"]
+        # settings_section = "_"
+        # [solargraph.settings._]
+        # See https://github.com/castwide/solargraph/blob/master/lib/solargraph/language_server/host.rb
+        # diagnostics = false
+        [ruby-lsp]
+        root_globs = ["Gemfile"]
+        args = ["stdio"]
+    }
+}
+
+
 try %{ declare-option -docstring "name of the client in which documentation is displayed" str docsclient docs }
 try %{ declare-option -hidden str ruby_doc_subject '' }
 try %{ declare-option -hidden range-specs ruby_doc_links }
