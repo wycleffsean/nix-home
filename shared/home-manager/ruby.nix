@@ -119,16 +119,32 @@ in
         fi
 
         if [ "''${1:-}" = "--list" ]; then
-          ${ruby}/bin/ri --doc-dir "$docdir" --list
+          DOCDIR="$docdir" ${ruby}/bin/ruby -ruri -e '
+            docdir = ENV.fetch("DOCDIR")
+            Dir.glob("#{docdir}/**/*.ri").each do |path|
+              rel = path.delete_prefix("#{docdir}/")
+              dir = File.dirname(rel)
+              klass = dir.split("/").join("::")
+              file = File.basename(rel, ".ri")
+
+              if file.start_with?("cdesc-")
+                puts klass
+              elsif file =~ /\A(.+)-([ic])\z/
+                method = URI.decode_www_form_component($1)
+                separator = $2 == "i" ? "#" : "."
+                puts "#{klass}#{separator}#{method}"
+              end
+            end
+          ' | ${pkgs.coreutils}/bin/sort -u
           exit 0
         fi
 
         if [ "$#" -eq 0 ]; then
           ${ruby}/bin/ri --doc-dir "$docdir" --list \
             | ${pkgs.fzf}/bin/fzf \
-            | xargs -r ${ruby}/bin/ri --doc-dir "$docdir" -T --format=rdoc
+            | xargs -r ${ruby}/bin/ri --doc-dir "$docdir" -T --format=ansi
         else
-          ${ruby}/bin/ri --doc-dir "$docdir" -T --format=rdoc "$@"
+          ${ruby}/bin/ri --doc-dir "$docdir" -T --format=ansi "$@"
         fi
       '';
     };
