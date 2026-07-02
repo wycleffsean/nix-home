@@ -8,7 +8,7 @@ let
   ruby = pkgs.ruby;
 
   # e.g. ruby 3.4 becomes 3.0
-  rubyApiVersion = "${lib.versions.majorMinor ruby.version.major}.0";
+  rubyApiVersion = "${ruby.version.libDir}";
 
   rubyRiDir = "${config.xdg.dataHome}/ruby-ri/ruby-${ruby.version}";
 
@@ -16,8 +16,8 @@ let
     ps: with ps; [
       # bundler
       rake
-      rdoc
-      irb
+      # rdoc
+      # irb
 
       # LSP / formatting /linting
       ruby-lsp

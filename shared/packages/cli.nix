@@ -7,13 +7,14 @@
     deno # typescript language server
     editorconfig-core-c
     entr
+    fd
     glances
     go
     gopls # golang LSP
     # (callPackage ../../pkgs/micasa.nix {})
     mosh
     nixd # nix lsp
-    nixfmt-rfc-style
+    nixfmt
     postgres-language-server
     pyright # python typechecker and LSP
     ruff # Extremely fast Python linter and code formatter
