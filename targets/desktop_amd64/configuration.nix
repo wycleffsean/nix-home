@@ -192,7 +192,7 @@
         enable = true;
         extraConfig = ''
           Host *
-          	IdentityAgent ~/.1password/agent.sock
+          	IdentityAgent SSH_AUTH_SOCK
           Host macbook-pro
             Hostname MacBook-Pro.local
             User sean
