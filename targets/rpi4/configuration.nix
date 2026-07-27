@@ -14,6 +14,7 @@
       ../../shared/std.nix
       ../../shared/users/sean.nix
       ../../shared/media/server.nix
+      ../../shared/networking/bastion.nix
     ];
 
   # Use the extlinux boot loader. (NixOS wants to enable GRUB by default)
