@@ -3,8 +3,8 @@ eval %sh{kak-lsp --kakoune -s $kak_session}
 # uncomment to troubleshoot
 # set global lsp_cmd "kak-lsp -s %val{session} -vvv --log /tmp/kak-lsp.log"
 lsp-enable # is this needed?
-lsp-inlay-hints-enable global
-lsp-inlay-diagnostics-enable global
+# lsp-inlay-hints-enable global
+# lsp-inlay-diagnostics-enable global
 lsp-auto-hover-enable
 
 # anchor hover information to cursor instead of clippy
