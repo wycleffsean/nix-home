@@ -9,11 +9,11 @@ declare-option -docstring %{
     if command -v pbcopy >/dev/null 2>&1; then
         printf %s 'pbcopy'
     elif [ -n "${WAYLAND_DISPLAY:-}" ] && command -v wl-copy >/dev/null 2>&1; then
-        printf %s 'wl-copy'
+        printf %s 'wl-copy --type text/plain >/dev/null 2>&1'
     elif command -v xclip >/dev/null 2>&1; then
-        printf %s 'xclip -selection clipboard -in'
+        printf %s 'xclip -selection clipboard -in >/dev/null 2>&1'
     elif command -v xsel >/dev/null 2>&1; then
-        printf %s 'xsel --clipboard --input'
+        printf %s 'xsel --clipboard --input >/dev/null 2>&1'
     fi
     # for cmd in "xsel -i" "pbcopy" "wl-copy -p" "xclip"; do
     #     program="${cmd%% *}"
