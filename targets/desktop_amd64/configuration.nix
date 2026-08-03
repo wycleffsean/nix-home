@@ -338,7 +338,7 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    # blender -- use flatpak or `nix run nixpkgs#blender` (system pkg triggers cudaSupport ptxas segfault in 26.05)
+    blender #-- use flatpak or `nix run nixpkgs#blender` (system pkg triggers cudaSupport ptxas segfault in 26.05)
     bottles
     cargo
     celluloid
