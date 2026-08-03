@@ -163,6 +163,15 @@
   programs.zellij = {
     enable = true;
     enableZshIntegration = false;
+
+    settings = {
+      # Zellij performs multiplexing, but Ghostty
+      # owns mouse selection
+      # mouse_mode = false;
+      # copy_on_select = false;
+      copy_clipboard = "system";
+      show_startup_tips = false;
+    };
   };
   programs.zoxide = {
     enable = true;

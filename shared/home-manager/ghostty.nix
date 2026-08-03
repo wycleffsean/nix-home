@@ -16,6 +16,12 @@ in
 
     settings = {
       scrollback-limit = 20000000;
+      # copy-on-select = false;
+
+      # Always reserver shift+mouse for ghostty
+      # even if TUI asks to capture shifted
+      # mouse events
+      mouse-shift-capture = "never";
     }
     // lib.optionalAttrs isLinux {
       keybind = [
