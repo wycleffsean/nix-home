@@ -42,7 +42,7 @@ map global normal '#' :comment-line<ret>
 map global user c %{:edit ~/.config/kak/kakrc<ret>} -docstring 'Edit kakrc'
 map global user d %{:edit *debug*<ret>} -docstring 'View *debug* buffer'
 map global user o %{:file-browser<ret>} -docstring "Open nnn"
-map global user y '<a-|>xsel -i -b<ret>' -docstring "yank selection to clipboard"
+map global user y %{:clipboard-copy<ret>} -docstring "yank selection to clipboard"
 
 map global user l %{:enter-user-mode lsp<ret>} -docstring "LSP mode"
 map global insert <tab> '<a-;>:try lsp-snippets-select-next-placeholders catch %{ execute-keys -with-hooks <lt>tab> }<ret>' -docstring 'Select next snippet placeholder'

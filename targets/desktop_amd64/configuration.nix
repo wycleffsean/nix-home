@@ -26,6 +26,7 @@
     ../../shared/std.nix
     ../../shared/packages/cli.nix
     ../../shared/desktop/niri.nix
+    ../../shared/desktop/gnome.nix
     ../../shared/users/sean.nix
     ../../shared/networking/mullvad.nix
     ../../shared/media/spotify.nix

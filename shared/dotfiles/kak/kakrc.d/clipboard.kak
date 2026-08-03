@@ -6,25 +6,43 @@
 declare-option -docstring %{
     The shell command to which data will be piped to copy to the system clipboard
 } str clipboardcmd_copy %sh{
-    for cmd in "xsel -i" "pbcopy" "wl-copy -p" "xclip"; do
-        program="${cmd%% *}"
-        if command -v "${program}" >/dev/null 2>&1; then
-            printf %s "${cmd}"
-            exit
-        fi
-    done
+    if command -v pbcopy >/dev/null 2>&1; then
+        printf %s 'pbcopy'
+    elif [ -n "${WAYLAND_DISPLAY:-}" ] && command -v wl-copy >/dev/null 2>&1; then
+        printf %s 'wl-copy'
+    elif command -v xclip >/dev/null 2>&1; then
+        printf %s 'xclip -selection clipboard -in'
+    elif command -v xsel >/dev/null 2>&1; then
+        printf %s 'xsel --clipboard --input'
+    fi
+    # for cmd in "xsel -i" "pbcopy" "wl-copy -p" "xclip"; do
+    #     program="${cmd%% *}"
+    #     if command -v "${program}" >/dev/null 2>&1; then
+    #         printf %s "${cmd}"
+    #         exit
+    #     fi
+    # done
 }
 
 declare-option -docstring %{
     The shell command which will paste the system clipboard into the current buffer
 } str clipboardcmd_paste %sh{
-    for cmd in "xsel -o 2>/dev/null" "pbpaste" "wl-paste -p" "xclip -o -selection clipboard"; do
-        program="${cmd%% *}"
-        if command -v "${program}" >/dev/null 2>&1; then
-            printf %s "${cmd}"
-            exit
-        fi
-    done
+    if command -v pbpaste >/dev/null 2>&1; then
+        printf %s 'pbpase'
+    elif [ -n "${WAYLAND_DISPLAY:-}" ] && command -v wl-paste >/dev/null 2>&1; then
+        printf %s 'wl-paste --no-newline'
+    elif command -v xclip >/dev/null 2>&1; then
+        printf %s 'xclip -selection clipboard -out'
+    elif command -v xsel >/dev/null 2>&1; then
+        printf %s 'xsel --clipboard --output'
+    fi
+    # for cmd in "xsel -o 2>/dev/null" "pbpaste" "wl-paste -p" "xclip -o -selection clipboard"; do
+    #     program="${cmd%% *}"
+    #     if command -v "${program}" >/dev/null 2>&1; then
+    #         printf %s "${cmd}"
+    #         exit
+    #     fi
+    # done
 }
 
 define-command -params .. -docstring %{
