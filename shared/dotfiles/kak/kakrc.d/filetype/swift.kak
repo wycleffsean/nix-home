@@ -8,7 +8,6 @@ hook global WinSetOption filetype=swift %{
     set-option buffer tabstop 4
     set-option buffer shiftwidth 4
     set-option buffer expandtab 1
-    set-option window lsp_auto_highlight_references true
 
     # https://github.com/kakoune-lsp/kakoune-lsp?tab=readme-ov-file#semantic-tokens
     hook window -group semantic-tokens BufReload .* lsp-semantic-tokens

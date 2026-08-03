@@ -46,9 +46,6 @@ hook -group lsp-filetype-python global BufSetOption filetype=python %{
 # Window-local Python UI behavior
 # ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
 hook -group python-window global WinSetOption filetype=python %{
-    set-option window lsp_auto_highlight_references true
-    set-option window lsp_auto_show_code_actions true
-
     # Optional manual lint command. LSP diagnostics should be primary,
     # but :lint remains useful when you want an explicit Ruff check.
     set-option window lintcmd 'ruff check --preview --stdin-filename %val{buffile} -'

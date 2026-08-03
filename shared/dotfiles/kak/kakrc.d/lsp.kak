@@ -2,14 +2,21 @@
 eval %sh{kak-lsp --kakoune -s $kak_session}
 # uncomment to troubleshoot
 # set global lsp_cmd "kak-lsp -s %val{session} -vvv --log /tmp/kak-lsp.log"
-lsp-enable # is this needed?
+
+# Enable LSP globally.  This loads the bundled server
+# configuration appropriate for each buffer's filetype
+lsp-enable
 # lsp-inlay-hints-enable global
 # lsp-inlay-diagnostics-enable global
 lsp-auto-hover-enable
+lsp-auto-hover-enable
+lsp-auto-signature-help-enable
+lsp-auto-hover-insert-mode-disable
 
 # anchor hover information to cursor instead of clippy
 # set-option lsp_hover_anchor global true
 set-option global lsp_auto_highlight_references true
+set-option global lsp_auto_show_code_actions true
 
 # # Define a function to show hover info
 # define-command lsp-auto-hover %{
@@ -22,17 +29,6 @@ set-option global lsp_auto_highlight_references true
 # hook global NormalIdle .* %{
 #     lsp-auto-hover
 # }
-
-# enable for all languages that we want to use the LSP, here we're enabling C++ and Zig.
-hook global WinSetOption filetype=(c|cpp|zig|ruby|python) %{
-    lsp-enable-window
-    # the options below are optional (and self-explanatory)
-    set-option window lsp_auto_show_code_actions true
-    # lsp-code-actions-enable
-    lsp-auto-hover-enable
-    lsp-auto-signature-help-enable
-    lsp-auto-hover-insert-mode-disable
-}
 
 # map global user l %{:enter-user-mode lsp<ret>} -docstring "LSP mode"
 # map global insert <tab> '<a-;>:try lsp-snippets-select-next-placeholders catch %{ execute-keys -with-hooks <lt>tab> }<ret>' -docstring 'Select next snippet placeholder'
