@@ -4,9 +4,19 @@ set-option global grepcmd 'rg -Hn --no-heading'
 set-option -add global autoinfo normal
 set-option global spell_lang 'en_US'
 
+# line numbers are a property of a window, now a buffer
+# the named hook group also makes this safe to reload
+remove-hooks global my-line-numbers
+
+define-command -hidden 'ensure-line-numbers' %{
+    try %{ remove-highlighter window/my-line-numbers }
+    add-highlighter window/my-line-numbers \
+        number-lines -hlcursor -cursor-separator '>'
+}
+
 # enable line numbers for normal buffers
-hook global WinCreate ^[^*]+$ %{ add-highlighter buffer/ number-lines -hlcursor -cursor-separator '>' }
-hook global WinCreate \*grep\* %{ add-highlighter buffer/ number-lines -hlcursor -cursor-separator '>' }
+hook global WinCreate ^[^*]+$ %{ ensure-line-numbers }
+hook global WinCreate \*grep\* %{ ensure-line-numbers }
 add-highlighter global/ wrap -word -indent
 
 # Highlight all strings that match search register
