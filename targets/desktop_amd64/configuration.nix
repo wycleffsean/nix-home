@@ -356,7 +356,6 @@
     gamescope # for lutris
     gcc
     gdb
-    ghostty
     gnumake
     godot_4
     httpie-desktop
