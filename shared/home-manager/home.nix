@@ -6,8 +6,7 @@
   config,
   pkgs,
   ...
-}:
-{
+}: {
   # You can import other home-manager modules here
   imports = [
     # If you want to use home-manager modules from other flakes (such as nix-colors):
@@ -62,17 +61,20 @@
         "io.github.celluloid_player.Celluloid.desktop"
         "org.gnome.Totem.desktop"
       ];
-      "text/html" = [ "firefox.desktop" ];
-      "x-scheme-handler/http" = [ "firefox.desktop" ];
-      "x-scheme-handler/https" = [ "firefox.desktop" ];
-
+      "text/html" = ["firefox.desktop"];
+      "x-scheme-handler/http" = ["firefox.desktop"];
+      "x-scheme-handler/https" = ["firefox.desktop"];
     };
   };
 
   # TODO: Set your username
   home = {
     username = "sean";
-    homeDirectory = lib.mkDefault (if pkgs.stdenv.isDarwin then "/Users/sean" else "/home/sean");
+    homeDirectory = lib.mkDefault (
+      if pkgs.stdenv.isDarwin
+      then "/Users/sean"
+      else "/home/sean"
+    );
     sessionPath = [
       "${config.home.homeDirectory}/.local/bin"
     ];
@@ -133,7 +135,6 @@
       key = "779787E772A20366721609512AB4271E1454E6BD";
       # signByDefault = true;
     };
-
   };
   programs.htop = {
     enable = true;
@@ -192,5 +193,4 @@
   systemd.user.startServices = "sd-switch";
 
   # wayland.windowManager.river.enable = true;
-
 }

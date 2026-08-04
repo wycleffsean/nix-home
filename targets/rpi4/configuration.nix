@@ -1,40 +1,42 @@
 # Edit this configuration file to define what should be installed on
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
-
-{ inputs, config, lib, pkgs, ... }:
-
 {
-  imports =
-    [
-      ./hardware-configuration.nix
-      # Import home-manager's NixOS module
-      inputs.home-manager.nixosModules.home-manager
+  inputs,
+  config,
+  lib,
+  pkgs,
+  ...
+}: {
+  imports = [
+    ./hardware-configuration.nix
+    # Import home-manager's NixOS module
+    inputs.home-manager.nixosModules.home-manager
 
-      ../../shared/std.nix
-      ../../shared/users/sean.nix
-      ../../shared/media/server.nix
-      ../../shared/networking/bastion.nix
-    ];
+    ../../shared/std.nix
+    ../../shared/users/sean.nix
+    ../../shared/media/server.nix
+    ../../shared/networking/bastion.nix
+  ];
 
   # Use the extlinux boot loader. (NixOS wants to enable GRUB by default)
   boot = {
-      kernelPackages = pkgs.linuxKernel.packages.linux_rpi4;
-      # initrd.availableKernelModules = [ "xhci_pci" "usbhid" "usb_storage" ];
-      loader = {
-          grub.enable = false;
-          # Enables the generation of /boot/extlinux/extlinux.conf
-          generic-extlinux-compatible.enable = true;
-      };
+    kernelPackages = pkgs.linuxKernel.packages.linux_rpi4;
+    # initrd.availableKernelModules = [ "xhci_pci" "usbhid" "usb_storage" ];
+    loader = {
+      grub.enable = false;
+      # Enables the generation of /boot/extlinux/extlinux.conf
+      generic-extlinux-compatible.enable = true;
+    };
   };
 
   hardware.enableRedistributableFirmware = true;
 
   networking = {
-      hostName = "raspberrypi4";
-      # Pick only one of the below networking options.
-      # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-      networkmanager.enable = true;  # Easiest to use and most distros use this by default.
+    hostName = "raspberrypi4";
+    # Pick only one of the below networking options.
+    # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+    networkmanager.enable = true; # Easiest to use and most distros use this by default.
   };
 
   # Set your time zone.
@@ -56,15 +58,15 @@
   # services.xserver.enable = true;
 
   fileSystems = {
-      "/mnt/sean-Arch/nixos-home" = {
-          device = "sean-Arch:/home/sean/code/sr.ht/nix-home";
-          fsType = "nfs";
-          options = [ "nfsvers=4.2" "x-systemd.automount" "noauto" "x-systemd.idle-timeout=10" ];
-      };
+    "/mnt/sean-Arch/nixos-home" = {
+      device = "sean-Arch:/home/sean/code/sr.ht/nix-home";
+      fsType = "nfs";
+      options = ["nfsvers=4.2" "x-systemd.automount" "noauto" "x-systemd.idle-timeout=10"];
+    };
 
-      "/mnt/blue_hdd" = {
-          device = "/dev/disk/by-uuid/f7e84711-affd-4ce9-b76f-f650c9d30033";
-      };
+    "/mnt/blue_hdd" = {
+      device = "/dev/disk/by-uuid/f7e84711-affd-4ce9-b76f-f650c9d30033";
+    };
   };
 
   # Configure keymap in X11
@@ -116,10 +118,10 @@
 
   # Enable the OpenSSH daemon.
   services.openssh = {
-  enable = true;
-  settings.PasswordAuthentication = true;
-  settings.PermitRootLogin = "yes";
-};
+    enable = true;
+    settings.PasswordAuthentication = true;
+    settings.PermitRootLogin = "yes";
+  };
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
@@ -151,4 +153,3 @@
   # For more information, see `man configuration.nix` or https://nixos.org/manual/nixos/stable/options#opt-system.stateVersion .
   system.stateVersion = "24.11"; # Did you read the comment?
 }
-

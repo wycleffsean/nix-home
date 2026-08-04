@@ -7,10 +7,8 @@
   # lib,
   pkgs,
   ...
-}:
-
-{
-  imports = [ ];
+}: {
+  imports = [];
 
   # this gives <nixpkgs> the same pinned nixpkgs
   # input as the system flake; nixd recommends this

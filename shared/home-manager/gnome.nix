@@ -3,16 +3,14 @@
   pkgs,
   lib,
   ...
-}:
-let
+}: let
   isLinux = pkgs.stdenv.hostPlatform.isLinux;
-in
-{
+in {
   dconf.settings = lib.mkIf isLinux {
     "org/gnome/shell/keybindings" = {
       # Keep the notifications tray, but release
       # Super+V for applications
-      toggle-message-tray = [ "<Super>m" ];
+      toggle-message-tray = ["<Super>m"];
     };
   };
 }

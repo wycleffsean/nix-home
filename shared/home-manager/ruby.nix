@@ -3,8 +3,7 @@
   pkgs,
   lib,
   ...
-}:
-let
+}: let
   ruby = pkgs.ruby;
 
   # e.g. ruby 3.4 becomes 3.0
@@ -13,30 +12,30 @@ let
   rubyRiDir = "${config.xdg.dataHome}/ruby-ri/ruby-${ruby.version}";
 
   rubyTools = ruby.withPackages (
-    ps: with ps; [
-      # bundler
-      rake
-      # rdoc
-      # irb
+    ps:
+      with ps; [
+        # bundler
+        rake
+        # rdoc
+        # irb
 
-      # LSP / formatting /linting
-      ruby-lsp
-      # ruby-lsp-rspec
-      rubocop
-      standard
+        # LSP / formatting /linting
+        ruby-lsp
+        # ruby-lsp-rspec
+        rubocop
+        standard
 
-      # Debugging / REPL
-      debug
-      pry
-      pry-doc
+        # Debugging / REPL
+        debug
+        pry
+        pry-doc
 
-      # Test Frameworks
-      rspec
-      minitest
-    ]
+        # Test Frameworks
+        rspec
+        minitest
+      ]
   );
-in
-{
+in {
   home.packages = with pkgs; [
     rubyTools
   ];
@@ -149,5 +148,4 @@ in
       '';
     };
   };
-
 }

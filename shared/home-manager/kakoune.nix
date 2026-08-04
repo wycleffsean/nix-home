@@ -4,13 +4,9 @@
   # config,
   pkgs,
   ...
-}:
-
-let
+}: let
   unstable = inputs.nixpkgs-unstable.legacyPackages.${pkgs.stdenv.hostPlatform.system};
-in
-
-{
+in {
   programs.kakoune = {
     enable = true;
     defaultEditor = true;

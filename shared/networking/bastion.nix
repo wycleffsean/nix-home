@@ -1,24 +1,23 @@
-{ ... }:
-  {
-    services.tailscale = {
-      enable = true;
-      useRoutingFeatures = "server";
+{...}: {
+  services.tailscale = {
+    enable = true;
+    useRoutingFeatures = "server";
 
-      # Opens Tailscale's UDP listening port.  Tailscale can function
-      # without this through relays, but permitting it improves the chance
-      # of a p2p connection
-      openFirewall = true;
+    # Opens Tailscale's UDP listening port.  Tailscale can function
+    # without this through relays, but permitting it improves the chance
+    # of a p2p connection
+    openFirewall = true;
 
-      # This is the default Google Wifi LAN
-      extraSetFlags = [
-        "--advertise-routes=192.168.86.0/24"
-      ];
-    };
+    # This is the default Google Wifi LAN
+    extraSetFlags = [
+      "--advertise-routes=192.168.86.0/24"
+    ];
+  };
 
-    # services.openssh = {
-    #   enable = true;
+  # services.openssh = {
+  #   enable = true;
 
-    #   # TODO: revisit
-    #   openFirewall = true;
-    # };
-  }
+  #   # TODO: revisit
+  #   openFirewall = true;
+  # };
+}

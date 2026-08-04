@@ -1,19 +1,23 @@
 # Edit this configuration file to define what should be installed on
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
-
-{ inputs, outputs, config, lib, pkgs, ... }:
-
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-      # Import home-manager's NixOS module
-      inputs.home-manager.nixosModules.home-manager
+  inputs,
+  outputs,
+  config,
+  lib,
+  pkgs,
+  ...
+}: {
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+    # Import home-manager's NixOS module
+    inputs.home-manager.nixosModules.home-manager
 
-      ../../shared/std.nix
-      ../../shared/users/sean.nix
-    ];
+    ../../shared/std.nix
+    ../../shared/users/sean.nix
+  ];
 
   # Bootloader
   ## EFI / GPT
@@ -40,7 +44,7 @@
   networking.hostName = "nixos-vm"; # Define your hostname.
   # Pick only one of the below networking options.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-  networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
+  networking.networkmanager.enable = true; # Easiest to use and most distros use this by default.
 
   # Set your time zone.
   time.timeZone = "America/New_York";
@@ -52,15 +56,15 @@
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
   i18n.extraLocaleSettings = {
-    LC_ADDRESS= "en_US.UTF-8";
-    LC_IDENTIFICATION= "en_US.UTF-8";
-    LC_MEASUREMENT= "en_US.UTF-8";
-    LC_MONETARY= "en_US.UTF-8";
-    LC_NAME= "en_US.UTF-8";
-    LC_NUMERIC= "en_US.UTF-8";
-    LC_PAPER= "en_US.UTF-8";
-    LC_TELEPHONE= "en_US.UTF-8";
-    LC_TIME= "en_US.UTF-8";
+    LC_ADDRESS = "en_US.UTF-8";
+    LC_IDENTIFICATION = "en_US.UTF-8";
+    LC_MEASUREMENT = "en_US.UTF-8";
+    LC_MONETARY = "en_US.UTF-8";
+    LC_NAME = "en_US.UTF-8";
+    LC_NUMERIC = "en_US.UTF-8";
+    LC_PAPER = "en_US.UTF-8";
+    LC_TELEPHONE = "en_US.UTF-8";
+    LC_TIME = "en_US.UTF-8";
   };
   # console = {
   #   font = "Lat2-Terminus16";
@@ -72,9 +76,9 @@
   services.xserver = {
     enable = true;
 
-		# Enable the XFCE Desktop Environment.
-		displayManager.lightdm.enable = true;
-		desktopManager.xfce.enable = true;
+    # Enable the XFCE Desktop Environment.
+    displayManager.lightdm.enable = true;
+    desktopManager.xfce.enable = true;
 
     # Configure keymap in X11
     xkb = {
@@ -83,7 +87,6 @@
       # options = "eurosign:e,caps:escape";
     };
   };
-
 
   # Enable CUPS to print documents.
   # services.printing.enable = true;
@@ -126,13 +129,13 @@
   # List services that you want to enable:
 
   # Enable the OpenSSH daemon.
-   services.openssh = {
-     enable = true;
-     settings = {
-       X11Forwarding = true;
-       X11UseLocalhost = true;
-     };
-   };
+  services.openssh = {
+    enable = true;
+    settings = {
+      X11Forwarding = true;
+      X11UseLocalhost = true;
+    };
+  };
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
@@ -162,5 +165,4 @@
   #
   # For more information, see `man configuration.nix` or https://nixos.org/manual/nixos/stable/options#opt-system.stateVersion .
   system.stateVersion = "24.05"; # Did you read the comment?
-
 }

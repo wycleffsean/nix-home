@@ -20,7 +20,7 @@ buildGoModule rec {
   env.GOAMD64 = "v1";
 
   vendorHash = "sha256-FZfMwtcVOZ8mkA1NHXitqwp5X/FTb1VxyKvoy5qEoPU=";
-  subPackages = [ "cmd/micasa" ];
+  subPackages = ["cmd/micasa"];
 
   meta = with lib; {
     description = "Micasa CLI";

@@ -1,16 +1,13 @@
 # Edit this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
-
 {
   config,
   pkgs,
   # pkgs-unstable,
   inputs,
   ...
-}:
-
-{
+}: {
   #imports =
   #  [ # Include the results of the hardware scan.
   #    ./hardware-configuration.nix
@@ -139,7 +136,7 @@
 
   services.postgresql = {
     enable = true;
-    ensureDatabases = [ "sean" ];
+    ensureDatabases = ["sean"];
 
     authentication = pkgs.lib.mkOverride 10 ''
       #...
@@ -176,40 +173,38 @@
     enable = true;
     # Certain features, including CLI integration and system authentication support,
     # require enabling PolKit integration on some desktop environments (e.g. Plasma).
-    polkitPolicyOwners = [ "sean" ];
+    polkitPolicyOwners = ["sean"];
   };
   programs.coolercontrol.enable = true;
   programs.dconf.enable = true; # for gtk/qt apps like duckstation
   programs.nix-ld.enable = true;
   programs.zsh.enable = true;
 
-  home-manager.users.sean =
-    { pkgs, ... }:
-    {
-      home.packages = [ ];
-      programs.zsh.enable = true;
+  home-manager.users.sean = {pkgs, ...}: {
+    home.packages = [];
+    programs.zsh.enable = true;
 
-      programs.ssh = {
-        enable = true;
-        extraConfig = ''
-          Host *
-          	IdentityAgent SSH_AUTH_SOCK
-          Host macbook-pro
-            Hostname MacBook-Pro.local
-            User sean
-            PubkeyAuthentication unbound
-            IdentitiesOnly no
-        '';
-      };
-
-      programs.git = {
-        enable = true;
-        # TODO: gpg signing with 1Password. See nixos 1password wiki
-      };
-
-      # The state version is required and should stay at the version you originally installed
-      home.stateVersion = "24.05";
+    programs.ssh = {
+      enable = true;
+      extraConfig = ''
+        Host *
+        	IdentityAgent SSH_AUTH_SOCK
+        Host macbook-pro
+          Hostname MacBook-Pro.local
+          User sean
+          PubkeyAuthentication unbound
+          IdentitiesOnly no
+      '';
     };
+
+    programs.git = {
+      enable = true;
+      # TODO: gpg signing with 1Password. See nixos 1password wiki
+    };
+
+    # The state version is required and should stay at the version you originally installed
+    home.stateVersion = "24.05";
+  };
 
   fileSystems."/run/media/sean/home" = {
     device = "/dev/disk/by-uuid/dc64c413-9903-4d41-9495-89814665bb14";
@@ -295,7 +290,7 @@
 
   hardware.graphics.enable = true;
   hardware.graphics.enable32Bit = true;
-  services.xserver.videoDrivers = [ "nvidia" ];
+  services.xserver.videoDrivers = ["nvidia"];
   hardware.nvidia = {
     modesetting.enable = true;
     nvidiaSettings = true;
@@ -404,7 +399,7 @@
       PasswordAuthentication = false;
       KbdInteractiveAuthentication = false;
       PermitRootLogin = "no";
-      AllowUsers = [ "sean" ];
+      AllowUsers = ["sean"];
       X11Forwarding = true;
       X11UseLocalhost = true;
     };
@@ -431,9 +426,10 @@
     548 # netatalk
     1234 # openra
   ];
-  networking.firewall.allowedUDPPorts = [
-  ]
-  ++ pkgs.lib.lists.range 60000 61000; # mosh
+  networking.firewall.allowedUDPPorts =
+    [
+    ]
+    ++ pkgs.lib.lists.range 60000 61000; # mosh
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
 
@@ -446,5 +442,4 @@
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "24.05"; # Did you read the comment?
-
 }

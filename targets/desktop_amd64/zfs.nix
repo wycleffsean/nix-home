@@ -1,8 +1,10 @@
-{ config, pkgs, ...}:
-
 {
+  config,
+  pkgs,
+  ...
+}: {
   # Enable ZFS support
-  boot.supportedFilesystems = [ "zfs" ];
+  boot.supportedFilesystems = ["zfs"];
   # Used to avoid importing pools on the wrong machine
   networking.hostId = "007f0200";
   # boot.zfs.extraPools = [ "foxcroft" ]; # we don't want to depend on a USB device at boot because sometimes it's off

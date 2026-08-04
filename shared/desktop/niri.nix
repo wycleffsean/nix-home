@@ -1,6 +1,9 @@
-{ config, pkgs, pkgs-unstable, ... }:
-
 {
+  config,
+  pkgs,
+  pkgs-unstable,
+  ...
+}: {
   #### Niri compositor (Wayland session)
   programs.niri.enable = true;
 
