@@ -1,4 +1,7 @@
-{ pkgs, ... }:
+{ inputs, pkgs, ... }:
+let
+  unstable = inputs.nixpkgs-unstable.legacyPackages.${pkgs.stdenv.hostPlatform.system};
+in
 {
   environment.systemPackages = with pkgs; [
     bear # compile-commands.json for clangd lsp
@@ -13,7 +16,9 @@
     gopls # golang LSP
     # (callPackage ../../pkgs/micasa.nix {})
     mosh
-    nixd # nix lsp
+    # we need 2.9.2 to avoid hover bug that crashes kak-lsp
+    # https://github.com/nix-community/nixd/pull/828
+    unstable.nixd # nix lsp
     nixfmt
     postgres-language-server
     pyright # python typechecker and LSP

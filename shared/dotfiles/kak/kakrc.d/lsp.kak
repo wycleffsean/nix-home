@@ -6,10 +6,16 @@ eval %sh{kak-lsp --kakoune -s $kak_session}
 # Enable LSP globally.  This loads the bundled server
 # configuration appropriate for each buffer's filetype
 lsp-enable
+
+# freezes kakoune and memory runs away until OOM killed
+# rel: https://github.com/mawww/kakoune/issues/5440
 # lsp-inlay-hints-enable global
 # lsp-inlay-diagnostics-enable global
-lsp-auto-hover-enable
-lsp-auto-hover-enable
+
+# crashes kak-lsp because nixd appaarently
+# sends weird hover information.  Also can just be
+# kind of annoying while editing
+# lsp-auto-hover-enable
 lsp-auto-signature-help-enable
 lsp-auto-hover-insert-mode-disable
 

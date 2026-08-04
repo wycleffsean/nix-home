@@ -5,7 +5,7 @@
 {
   config,
   pkgs,
-  pkgs-unstable,
+  # pkgs-unstable,
   inputs,
   ...
 }:

@@ -20,6 +20,7 @@
 
   outputs = {
     self,
+    # flake-utils,
     nixpkgs,
     nixpkgs-unstable,
     nix-darwin,
