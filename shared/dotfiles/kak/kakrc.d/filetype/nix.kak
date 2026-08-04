@@ -1,7 +1,7 @@
 # Copied from the zig.kak file
 
 hook global WinSetOption filetype=nix %{
-    set-option buffer formatcmd 'nixfmt -'
+    set-option buffer formatcmd 'alejandra -'
     # set-option global lsp_server_configuration zls.zig_lib_path="/usr/lib/zig"
     # set-option -add global lsp_server_configuration zls.warn_style=true
     # set-option -add global lsp_server_configuration zls.enable_semantic_tokens=true

@@ -95,7 +95,7 @@ hook -group lsp-filetype-nix global BufSetOption filetype=nix %{
         # nixpkgs.expr = "let flake = builtins.getFlake (builtins.toString ./.); in if flake ? inputs && flake.inputs ? nixpkgs then
         nixpkgs.expr = "let flake = builtins.getFlake (builtins.toString ./.); in if flake ? inputs && flake.inputs ? nixpkgs then import flake.inputs.nixpkgs { } else import <nixpkgs> { }"
 
-        formatting.command = ["nixfmt"]
+        formatting.command = ["alejandra"]
 
         # Full NixOS option completion for our nix-home repo
         # In unrelated flakes, produce an empty option string instead of failing

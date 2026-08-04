@@ -4,6 +4,7 @@ let
 in
 {
   environment.systemPackages = with pkgs; [
+    alejandra
     bear # compile-commands.json for clangd lsp
     btop
     clang-tools # we really only want clangd, the lsp
@@ -19,7 +20,6 @@ in
     # we need 2.9.2 to avoid hover bug that crashes kak-lsp
     # https://github.com/nix-community/nixd/pull/828
     unstable.nixd # nix lsp
-    nixfmt
     postgres-language-server
     pyright # python typechecker and LSP
     ruff # Extremely fast Python linter and code formatter
