@@ -17,5 +17,5 @@ hook global WinSetOption filetype=nix %{
 
 hook global BufSetOption filetype=nix %{
     # remove-hooks buffer nix-format-on-save
-    hook -group nix-format-on-save buffer BufPreWrite .* lsp-formatting-sync
+    hook -group nix-format-on-save buffer BufWritePre .* lsp-formatting-sync
 }
