@@ -2,9 +2,9 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 {
-  config,
+  # config,
   pkgs,
-  inputs,
+  # inputs,
   self,
   ...
 }: {
@@ -53,6 +53,12 @@
   # Used for backwards compatibility, please read the changelog before changing.
   # $ darwin-rebuild changelog
   system.stateVersion = 5;
+
+  system.defaults.CustomUserPreferences = {
+    NSGlobalDomain = {
+      NSAutomaticSpellingCorrectionEnabled = false;
+    };
+  };
 
   # The platform the configuration will be used on.
   nixpkgs.hostPlatform = "aarch64-darwin";
