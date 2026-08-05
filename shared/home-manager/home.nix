@@ -89,7 +89,7 @@
   # Add stuff for your user as you see fit:
   # programs.neovim.enable = true;
   home.packages = [
-    inputs.zak.packages.${pkgs.system}.default
+    inputs.zak.packages.${pkgs.stdenv.hostPlatform.system}.default
   ];
 
   # Enable home-manager and git
