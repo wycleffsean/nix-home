@@ -147,5 +147,74 @@ in {
         fi
       '';
     };
+
+    ".local/bin/godot_lsp" = {
+      executable = true;
+      text = ''
+        #!${ruby}/bin/ruby
+        # frozen_string_literal: true
+
+        require 'socket'
+        require 'open3'
+
+        PORT = ENV.fetch('GODOT_LSP_PORT', 6005).to_i
+        PROJECT_PATH = Dir.pwd
+        GODOT_BIN = ENV.fetch('GODOT_PATH', 'godot')
+
+        def start_godot
+          # Spawn Godot completely detached in the background
+          spawn(GODOT_BIN, '--editor', '--headless', '--lsp-port', PORT.to_s, '--path', PROJECT_PATH,
+                out: File::NULL, err: File::NULL)
+        end
+
+        def connect_socket
+          socket = TCPSocket.new('127.0.0.1', PORT)
+          socket.setsockopt(Socket::IPPROTO_TCP, Socket::TCP_NODELAY, 1)
+          socket
+        rescue Errno::ECONNREFUSED, Errno::ETIMEDOUT
+          nil
+        end
+
+        # Ensure Godot is running
+        server_socket = connect_socket
+        unless server_socket
+          start_godot
+          # Wait for Godot's language server port to open (up to ~6 seconds)
+          retries = 0
+          until (server_socket = connect_socket)
+            retries += 1
+            if retries > 30
+              abort("Error: Could not connect to Godot LSP server on port #{PORT}")
+            end
+            sleep 0.2
+          end
+        end
+
+        # Pipe standard input/output streams between kak-lsp and Godot's TCP socket
+        reader = Thread.new do
+          begin
+            loop do
+              data = $stdin.readpartial(1024)
+              server_socket.write(data)
+            end
+          rescue EOFError, IOError
+            # Clean shutdown
+          end
+        end
+
+        begin
+          loop do
+            data = server_socket.readpartial(1024)
+            $stdout.write(data)
+            $stdout.flush
+          end
+        rescue EOFError, IOError
+          # Clean shutdown
+        ensure
+          server_socket.close rescue nil
+          reader.kill rescue nil
+        end
+      '';
+    };
   };
 }
