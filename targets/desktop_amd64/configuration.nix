@@ -4,7 +4,7 @@
 {
   config,
   pkgs,
-  # pkgs-unstable,
+  pkgs-unstable,
   inputs,
   ...
 }: {
@@ -353,7 +353,7 @@
     gcc
     gdb
     gnumake
-    godot_4
+    pkgs-unstable.godot_4
     httpie-desktop
     ladybird
     libreoffice
