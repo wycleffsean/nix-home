@@ -317,7 +317,15 @@
   };
 
   # Install firefox.
-  programs.firefox.enable = true;
+  programs.firefox = {
+    enable = true;
+
+    preferences = {
+      "javascript.options.baselinejit" = false;
+      "javascript.options.ion" = false;
+      "javascript.options.mem.nursery.max_kb" = 0;
+    };
+  };
 
   # Allow unfree packages
   # TODO: set unfree predicates instead i.e. explicitly list unfree software
