@@ -346,7 +346,7 @@
     cargo
     celluloid
     claude-code
-    codex
+    (callPackage ../../shared/packages/codex.nix {})
     # coolercontrol.coolercontrol-gui
     # coolercontrol.coolercontrold
     # coolercontrol.coolercontrol-liqctld
