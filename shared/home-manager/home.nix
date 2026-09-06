@@ -62,9 +62,9 @@
         "io.github.celluloid_player.Celluloid.desktop"
         "org.gnome.Totem.desktop"
       ];
-      "text/html" = ["firefox.desktop"];
-      "x-scheme-handler/http" = ["firefox.desktop"];
-      "x-scheme-handler/https" = ["firefox.desktop"];
+      "text/html" = ["brave-browser.desktop"];
+      "x-scheme-handler/http" = ["brave-browser.desktop"];
+      "x-scheme-handler/https" = ["brave-browser.desktop"];
     };
   };
 

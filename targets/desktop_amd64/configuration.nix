@@ -358,7 +358,7 @@
     # coolercontrol.coolercontrold
     # coolercontrol.coolercontrol-liqctld
     # coolercontrol.coolercontrol-ui-data
-    # devilutionx
+    devilutionx
     discord
     doctl
     # duckstation # PS1 Emulator
@@ -370,21 +370,24 @@
     gnumake
     pkgs-unstable.godot_4
     httpie-desktop
-    ladybird
+    # ladybird
     libreoffice
+    lorien
     lsof
     lutris # game preservation platform
     man-pages
     man-pages-posix
     mangohud # for lutris
+    # orion-browser in nixpkgs is currently aarch64-darwin only.
     pkg-config
     protonplus # needed for battle.net on lutris
+    rpcs3
     ruby
     rustc
     # rustdesk # remote desktop -- build broken in 26.05 (cargo vendor fetches from github at build time)
     socat
     typescript
-    # ungoogled-chromium
+    brave
     # ventoy-full
     vscode-langservers-extracted
     xclip
