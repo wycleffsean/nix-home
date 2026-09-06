@@ -15,7 +15,10 @@ hook global WinSetOption filetype=zig %{
 }
 
 hook global BufSetOption filetype=zig %{
-    set-option buffer lintcmd 'zig fmt --color off --ast-check 2>&1'
+    set-option buffer lintcmd 'zlint-kak  %val{buffile}'
+    # set-option buffer lintcmd 'zlint --stdin 2>&1'
+
+    # set-option buffer lintcmd 'zig fmt --color off --ast-check 2>&1'
     # To enable auto linting on buffer write
     #hook -group zig-auto-lint buffer BufWritePre .* lint-buffer
     hook -group zig-auto-lint buffer BufWritePre .* lsp-formatting-sync

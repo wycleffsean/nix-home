@@ -17,6 +17,7 @@
     ./gnome.nix
     ./kakoune.nix
     ./ruby.nix
+    ./zlint-kak.nix
   ];
 
   # nixpkgs = {

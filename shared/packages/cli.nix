@@ -36,6 +36,7 @@ in {
       typescript-language-server
       uv # Extremely fast Python package installer and resolver, written in Rust
       zig
+      zig-zlint
       zls
     ]
     ++ lib.optionals stdenv.isLinux [
