@@ -327,10 +327,17 @@
     };
   };
 
+  nix.gc = {
+    automatic = true;
+    dates = "weekly";
+    options = "--delete-older-than 30d";
+  };
+
   # Allow unfree packages
   # TODO: set unfree predicates instead i.e. explicitly list unfree software
   nixpkgs.config = {
     allowUnfree = true;
+
     # cudaSupport = true; # causes blender/suitesparse ptxas segfault; dev shell manages CUDA libs directly
     permittedInsecurePackages = [
       "ventoy-1.1.05"
